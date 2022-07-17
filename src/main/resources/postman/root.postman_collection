@@ -1,0 +1,3228 @@
+{
+	"info": {
+		"_postman_id": "13383a99-603a-41cd-9c83-3e7b43a470cf",
+		"name": "private",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11702949"
+	},
+	"item": [
+		{
+			"name": "Microservices",
+			"item": [
+				{
+					"name": "old",
+					"item": [
+						{
+							"name": "productos",
+							"item": [
+								{
+									"name": "listar",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8001/listar",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"listar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8001/ver/2",
+											"host": [
+												"localhost"
+											],
+											"port": "8001",
+											"path": [
+												"ver",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNjU4ODIzOSwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiODlkOGFkZTQtNmFjYS00OTg5LWFiMWYtYjJlYjVhMDA2M2Q3IiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.cwyodMy4a0QQx1W98FWgY4lJCAvsgo7wJuVIyVkLNQw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/productos/1",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"productos",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "listar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNTUzNjIzMiwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiODJhNGIzOGMtMDhjNC00OTdkLWI2NjMtYjQ4Y2IwMTE5N2VjIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.dPtZMULU2QTLYD_tzhCdhLbw9db-y43-PIDgaTL_YmY",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "123456",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "localhost:8090/api/productos/listar",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"productos",
+												"listar"
+											],
+											"query": [
+												{
+													"key": "color",
+													"value": "verde",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "crear Zuul",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Samsung Galaxy S8\",\r\n    \"precio\": 1500,\r\n    \"createAt\": \"2019-06-13\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/productos/crear",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"productos",
+												"crear"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "editar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNTUzNjIzMiwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiODJhNGIzOGMtMDhjNC00OTdkLWI2NjMtYjQ4Y2IwMTE5N2VjIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.dPtZMULU2QTLYD_tzhCdhLbw9db-y43-PIDgaTL_YmY",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Samsung Galaxy S9\",\r\n    \"precio\": 2000\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/productos/editar/1",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"productos",
+												"editar",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "eliminar Zuul",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/productos/eliminar/3",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"productos",
+												"eliminar",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "items",
+							"item": [
+								{
+									"name": "crear",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Mesa oficina\",\r\n    \"precio\": 2500,\r\n    \"createAt\": \"2019-06-14\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8005/crear",
+											"host": [
+												"localhost"
+											],
+											"port": "8005",
+											"path": [
+												"crear"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "listar",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8002/listar",
+											"host": [
+												"localhost"
+											],
+											"port": "8002",
+											"path": [
+												"listar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8002/ver/2/cantidad/5",
+											"host": [
+												"localhost"
+											],
+											"port": "8002",
+											"path": [
+												"ver",
+												"2",
+												"cantidad",
+												"5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "listar Zuul",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/items/listar",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"listar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNTk4NDk3NSwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiYmQ2YWZlNWQtMzQyYi00ZDFhLWE0NWQtYzVkY2RhOGI5MzYyIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.vG8n-GTo_o6o9JH4cFT-OoLrlz4yAlGItqZC07jm-mY",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/items/ver/2/cantidad/5",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"ver",
+												"2",
+												"cantidad",
+												"5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "obtener configuración",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8005/obtener-config",
+											"host": [
+												"localhost"
+											],
+											"port": "8005",
+											"path": [
+												"obtener-config"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "obtener configuración Zuul",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/items/obtener-config",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"obtener-config"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "crear Zuul",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Mesa comedor antiguo\",\r\n    \"precio\": 5700,\r\n    \"createAt\": \"2019-06-14\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/items/crear",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"crear"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "editar Zuul",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Silla comedor\",\r\n    \"precio\": 700\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/items/editar/12",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"editar",
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "eliminar Zuul",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/items/eliminar/9",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"eliminar",
+												"9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "oauth",
+							"item": [
+								{
+									"name": "generar token Zuul",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "12345",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "frontendapp",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "12345",
+													"type": "text"
+												},
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:8090/api/security/oauth/token",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"security",
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "refresh token Zuul",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "12345",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "frontendapp",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "refresh_token",
+													"type": "text"
+												},
+												{
+													"key": "refresh_token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImF0aSI6IjdiN2VhODkxLWZkNGYtNDg4Yi05MGIwLTdhMmMyOGNmODg3NiIsImV4cCI6MTYzNTEyMDgyNiwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiODYzNzkwYjktNjQ1Zi00ZWViLWFmMTctNDk4MmI4NWY3N2JiIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.FQfn4ejIqcy5syduZPk4IpkZyEESSSOdF_MGnn4llh4",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:8090/api/security/oauth/token",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"security",
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "generar token FAIL PASS Zuul",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "12345",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "frontendapp",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "XXXX",
+													"type": "text"
+												},
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:8090/api/security/oauth/token",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"security",
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "usuarios",
+							"item": [
+								{
+									"name": "listar Zuul",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://GAL323086:8090/api/usuarios/usuarios",
+											"protocol": "http",
+											"host": [
+												"GAL323086"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver by id Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNDM5MjI3NCwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNGQwZGMyNGUtZjY5ZS00MjJlLTllODQtZWJjM2M4NjJlZDRlIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.-HPOn9_r-NvGAmOekziLlAHR-Dk36GUbu-GWVGFubys",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios/2",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "crear Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNDM5MjI3NCwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNGQwZGMyNGUtZjY5ZS00MjJlLTllODQtZWJjM2M4NjJlZDRlIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.-HPOn9_r-NvGAmOekziLlAHR-Dk36GUbu-GWVGFubys",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"pepe\",\r\n    \"password\": \"123\",\r\n    \"enabled\": false,\r\n    \"nombre\": \"Pepe\",\r\n    \"apellido\": \"Perez\",\r\n    \"email\": \"Pepe.Perez@gmail.com\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": 1, \"nombre\": \"ROLE_USER\"\r\n        },\r\n        {\r\n            \"id\": 2, \"nombre\": \"ROLE_ADMIN\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "editar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNDM5MjI3NCwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNGQwZGMyNGUtZjY5ZS00MjJlLTllODQtZWJjM2M4NjJlZDRlIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.-HPOn9_r-NvGAmOekziLlAHR-Dk36GUbu-GWVGFubys",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"123\",\r\n    \"enabled\": false,\r\n    \"nombre\": \"Jose\",\r\n    \"apellido\": \"Jose\",\r\n    \"email\": \"Jose.Perez@gmail.com\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": 1, \"nombre\": \"ROLE_USER\"\r\n        },\r\n        {\r\n            \"id\": 2, \"nombre\": \"ROLE_ADMIN\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios/3",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios",
+												"3"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "eliminar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhcGVsbGlkbyI6IkRvZSIsImNvcnJlbyI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImV4cCI6MTYzNDM5MjI3NCwibm9tYnJlIjoiSm9obiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNGQwZGMyNGUtZjY5ZS00MjJlLTllODQtZWJjM2M4NjJlZDRlIiwiY2xpZW50X2lkIjoiZnJvbnRlbmRhcHAifQ.-HPOn9_r-NvGAmOekziLlAHR-Dk36GUbu-GWVGFubys",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios/4",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios",
+												"4"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver Zuul endpoint search",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios/search/findByUsername?username=admin",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios",
+												"search",
+												"findByUsername"
+											],
+											"query": [
+												{
+													"key": "username",
+													"value": "admin"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver Zuul endpoint search 2 (cambio de nombre)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/usuarios/usuarios/search/buscar-username?nombre=admin",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"usuarios",
+												"usuarios",
+												"search",
+												"buscar-username"
+											],
+											"query": [
+												{
+													"key": "nombre",
+													"value": "admin"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "actuator",
+							"item": [
+								{
+									"name": "refresh",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "localhost:8005/actuator/refresh",
+											"host": [
+												"localhost"
+											],
+											"port": "8005",
+											"path": [
+												"actuator",
+												"refresh"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "config-server",
+							"item": [
+								{
+									"name": "items",
+									"item": [
+										{
+											"name": "servicio-items-default",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "token",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "localhost:8888/servicio-items/default",
+													"host": [
+														"localhost"
+													],
+													"port": "8888",
+													"path": [
+														"servicio-items",
+														"default"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "servicio-items-default-dev",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:8888/servicio-items/dev",
+													"host": [
+														"localhost"
+													],
+													"port": "8888",
+													"path": [
+														"servicio-items",
+														"dev"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "servicio-items-default-pro",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:8888/servicio-items/pro",
+													"host": [
+														"localhost"
+													],
+													"port": "8888",
+													"path": [
+														"servicio-items",
+														"pro"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "usuarios",
+									"item": [
+										{
+											"name": "localhost:8888/servicio-usuarios/default",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:8888/servicio-usuarios/default",
+													"host": [
+														"localhost"
+													],
+													"port": "8888",
+													"path": [
+														"servicio-usuarios",
+														"default"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "localhost:8888/servicio-usuarios/dev",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Autorization",
+														"value": "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",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "localhost:8888/servicio-usuarios/dev",
+													"host": [
+														"localhost"
+													],
+													"port": "8888",
+													"path": [
+														"servicio-usuarios",
+														"dev"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "new",
+					"item": [
+						{
+							"name": "server-configuration",
+							"item": [
+								{
+									"name": "service-item",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "token",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "{{url_item_configuration}}/default",
+													"host": [
+														"{{url_item_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "dev",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_item_configuration}}/dev",
+													"host": [
+														"{{url_item_configuration}}"
+													],
+													"path": [
+														"dev"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "pro",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_item_configuration}}/pro",
+													"host": [
+														"{{url_item_configuration}}"
+													],
+													"path": [
+														"pro"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "pro - new",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_item_configuration}}/tree/master/service-item.properties",
+													"host": [
+														"{{url_item_configuration}}"
+													],
+													"path": [
+														"tree",
+														"master",
+														"service-item.properties"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "service-user",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_user_configuration}}/default",
+													"host": [
+														"{{url_user_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "dev",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Autorization",
+														"value": "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",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "{{url_user_configuration}}/dev",
+													"host": [
+														"{{url_user_configuration}}"
+													],
+													"path": [
+														"dev"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "service-product",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_product_configuration}}/default",
+													"host": [
+														"{{url_product_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "server-eureka",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_eureka_configuration}}/default",
+													"host": [
+														"{{url_eureka_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "server-configuration",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_configuration}}/default",
+													"host": [
+														"{{url_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "server-gateway",
+									"item": [
+										{
+											"name": "default",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "token",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "{{url_gateway_configuration}}/default",
+													"host": [
+														"{{url_gateway_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "server-oauth",
+									"item": [
+										{
+											"name": "default",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "token",
+														"type": "text",
+														"disabled": true
+													}
+												],
+												"url": {
+													"raw": "{{url_oauth_configuration}}/default",
+													"host": [
+														"{{url_oauth_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "localhost:8888/server-oauth/default",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "flemantico",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "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",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{url_oauth_configuration}}/default",
+													"host": [
+														"{{url_oauth_configuration}}"
+													],
+													"path": [
+														"default"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "server-oauth",
+							"item": [
+								{
+									"name": "normal",
+									"item": [
+										{
+											"name": "generar token",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"console.log('Inicio');\r",
+															"\r",
+															"// Pre-request script\r",
+															"// v1.0 - 09/12/2021\r",
+															"// @author: mariano.valle.cv@gmail.com\r",
+															"\r",
+															"var impersonalTokenUrl = pm.environment.get('SECURITY_IMPERSONAL') + pm.environment.get('TOKEN_URI');\r",
+															"var tokenURL = impersonalTokenUrl;\r",
+															"var userPW = btoa(pm.environment.get('SECURITY_IMPERSONAL_USER')+':'+pm.environment.get('SECURITY_IMPERSONAL_PASS'));\r",
+															"var username = pm.environment.get('SECURITY_USER');\r",
+															"var password = pm.environment.get('SECURITY_PASSWORD');\r",
+															"var refreshToken = pm.variables.get('refreshToken');\r",
+															"\r",
+															"utils = {\r",
+															"    refreshTokenPostRequest: {\r",
+															"        url: tokenURL,\r",
+															"        method: 'POST',\r",
+															"            header: [\r",
+															"            'Accept: application/json',\r",
+															"            'Content-Type: application/x-www-form-urlencoded',\r",
+															"            'Authorization: Basic ' + userPW            \r",
+															"        ],\r",
+															"        body: {\r",
+															"            mode: 'urlencoded',\r",
+															"            urlencoded: [\r",
+															"                {key: 'username', value: username, disabled: false},\r",
+															"                {key: 'password', value: password, disabled: false},\r",
+															"                {key: 'refresh_token', refreshToken, disabled: false},\r",
+															"                {key: 'grant_type', value: 'password', disabled: false}\r",
+															"            ]\r",
+															"        }        \r",
+															"    },\r",
+															"    createImpersonalTokenPostRequest: {\r",
+															"        url: tokenURL,\r",
+															"        method: 'POST',\r",
+															"        header: [\r",
+															"            'Accept: application/json',\r",
+															"            'Content-Type: application/x-www-form-urlencoded',\r",
+															"            'Authorization: Basic ' + userPW            \r",
+															"        ],\r",
+															"        body: {\r",
+															"            mode: 'urlencoded',\r",
+															"            urlencoded: [\r",
+															"                {key: 'username', value: username, disabled: false},\r",
+															"                {key: 'password', value: password, disabled: false},\r",
+															"                {key: 'grant_type', value: 'password', disabled: false}\r",
+															"            ]\r",
+															"        }\r",
+															"    },    \r",
+															"    updateVarToken: function (access_token, refresh_token) {\r",
+															"        postman.setGlobalVariable('accessToken', access_token);\r",
+															"        postman.setGlobalVariable('refreshToken', refresh_token);\r",
+															"    },\r",
+															"    logError: function (jsonErr, errorMessage) {\r",
+															"        if (errorMessage) {\r",
+															"            console.error(errorMessage);\r",
+															"        }\r",
+															"        console.error('Error: ');\r",
+															"        console.error(jsonErr);\r",
+															"    }\r",
+															"};\r",
+															"//La única diferencia entre el login impersonal y el officer es esta línea\r",
+															"utils.createTokenPostRequest = utils.createImpersonalTokenPostRequest;\r",
+															"//\r",
+															"\r",
+															"pm.test('Check variables', function () {\r",
+															"    if (!impersonalTokenUrl || !userPW) {\r",
+															"        console.error('Variables erróneas');\r",
+															"        postman.setNextRequest(null);\r",
+															"        return false;\r",
+															"    }\r",
+															"});\r",
+															"\r",
+															"pm.test('Login result', function () {\r",
+															"    var postRequest;\r",
+															"    var operation;\r",
+															"    var accessToken = postman.getGlobalVariable('accessToken');\r",
+															"    if (!accessToken || accessToken.isEmpty ) {\r",
+															"        postRequest = utils.createTokenPostRequest;\r",
+															"        operation = 'create';\r",
+															"    } else {\r",
+															"        postRequest = utils.refreshTokenPostRequest;\r",
+															"        operation = 'refresh';\r",
+															"    }\r",
+															"    console.info('operation: ' + operation);\r",
+															"\r",
+															"    pm.sendRequest(postRequest, function (err, response) {\r",
+															"        if (err) {\r",
+															"            //utils.logError(err.json(), 'Error calling refresh token service');\r",
+															"        } else {\r",
+															"            var jsonResponse = response.json();\r",
+															"\r",
+															"            if (response.status != 'OK') {\r",
+															"                // Error checking for refresh token response\r",
+															"                utils.logError(response);\r",
+															"                // Al fallar el refresh, intentamos crear el token\r",
+															"                pm.sendRequest(utils.createTokenPostRequest, function (err, response) {\r",
+															"                    if (err) {\r",
+															"                        utils.logError(err, 'Error calling create token service');\r",
+															"                    } else {\r",
+															"                        jsonResponse = response.json();\r",
+															"\r",
+															"                        if (response.status != 'OK') {\r",
+															"                            utils.logError(response, 'No se pudo refrescar ni generar el token');\r",
+															"                            utils.updateVarToken('', '');\r",
+															"                            postman.setNextRequest(null);\r",
+															"                            console.info('No generado');\r",
+															"                            return false;\r",
+															"                        } else {\r",
+															"                            console.info('access_token: ' + jsonResponse.access_token)\r",
+															"                            console.info('refresh_token: ' + jsonResponse.refresh_token)\r",
+															"                            utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);\r",
+															"                            console.info('Token generado correctamente');\r",
+															"                            return true;\r",
+															"                        }\r",
+															"                    }\r",
+															"                }); // END - pm.sendRequest create\r",
+															"            } else { // End Error checking for refresh token response\r",
+															"                console.info('access_token: ' + jsonResponse.access_token)\r",
+															"                console.info('refresh_token: ' + jsonResponse.refresh_token)\r",
+															"                utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);\r",
+															"                console.info('Token ' + operation + ' ejecutado correctamente');\r",
+															"                return true;\r",
+															"            }\r",
+															"        }\r",
+															"    }); // END - pm.sendRequest refresh\r",
+															"}); // END - pm.test Login\r",
+															"// END\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {
+													"connection": true,
+													"accept-encoding": true,
+													"accept": true,
+													"user-agent": true
+												},
+												"strictSSL": true,
+												"followOriginalHttpMethod": false,
+												"followAuthorizationHeader": false
+											},
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{password_authorization}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{username_authorization}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "grant_type",
+														"value": "password",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "username",
+															"value": "admin",
+															"type": "text"
+														},
+														{
+															"key": "password",
+															"value": "12345",
+															"type": "text"
+														},
+														{
+															"key": "grant_type",
+															"value": "password",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "localhost:9100/server-oauth/oauth/token",
+													"host": [
+														"localhost"
+													],
+													"port": "9100",
+													"path": [
+														"server-oauth",
+														"oauth",
+														"token"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "refresh token",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "{{username_authorization}}",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "12345",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "refresh_token",
+															"type": "text"
+														},
+														{
+															"key": "refresh_token",
+															"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI5ZTViMTE1Yi1hOGQ0LTRkMmYtOGVkOS1hMjRjZGViNjliZWYiLCJuYW1lIjoiSm9obiIsImxhc3RfbmFtZSI6IkRvZSIsImV4cCI6MTYzODkyNTUwMSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJiNWRlMzhjNy0wZWQ3LTQxMzMtYmMzNS1iMTg3NzQ0ZjkyOTUiLCJlbWFpbCI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.l2r5te8SzvqGnmm13PH9F2ZNogyDXNJRHTSz1yZciEk",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "localhost:9100/oauth/token",
+													"host": [
+														"localhost"
+													],
+													"port": "9100",
+													"path": [
+														"oauth",
+														"token"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "gateway",
+									"item": [
+										{
+											"name": "generar token Gateway",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "{{username_authorization}}",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "{{password_authorization}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "username",
+															"value": "admin",
+															"type": "text"
+														},
+														{
+															"key": "password",
+															"value": "12345",
+															"type": "text"
+														},
+														{
+															"key": "grant_type",
+															"value": "password",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url_gateway}}/{{path_oauth}}/oauth/token",
+													"host": [
+														"{{base_url_gateway}}"
+													],
+													"path": [
+														"{{path_oauth}}",
+														"oauth",
+														"token"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "refresh token Gateway",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{password_authorization}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{username_authorization}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "urlencoded",
+													"urlencoded": [
+														{
+															"key": "grant_type",
+															"value": "refresh_token",
+															"type": "text"
+														},
+														{
+															"key": "refresh_token",
+															"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJuYW1lIjoiSm9obiIsImxhc3RfbmFtZSI6IkRvZSIsImV4cCI6MTY1NTQwOTQ0MiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiI3ZTk2NDA1Yi0zMDFhLTRhZDItOWY0Yi02MzYzMDExNWQ4YzkiLCJlbWFpbCI6Ikpob24uRG9lQGdtYWlsLmNvbSIsImNsaWVudF9pZCI6ImZyb250ZW5kYXBwIn0.HY1B8eBG3FW3zpV7fIbd4dKOl6cuyO32UX5yiOkbBQw",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url_gateway}}/{{path_oauth}}/oauth/token",
+													"host": [
+														"{{base_url_gateway}}"
+													],
+													"path": [
+														"{{path_oauth}}",
+														"oauth",
+														"token"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "generar token FAIL PASS",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{username_authorization}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{password_authorization}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "XXXX",
+													"type": "text"
+												},
+												{
+													"key": "grant_type",
+													"value": "password",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_oauth}}/oauth/token",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_oauth}}",
+												"oauth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "service-user",
+							"item": [
+								{
+									"name": "all",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get by id",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/2",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get by name",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/admin",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"pepe\",\r\n    \"password\": \"123\",\r\n    \"enabled\": false,\r\n    \"name\": \"Pepe\",\r\n    \"lastName\": \"Perez\",\r\n    \"email\": \"Pepe.Perez@gmail.com\",\r\n    \"telephone\": \"4887304\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": 1, \"name\": \"ROLE_USER\"\r\n        },\r\n        {\r\n            \"id\": 2, \"name\": \"ROLE_ADMIN\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"jose\",\r\n    \"password\": \"123\",\r\n    \"enabled\": false,\r\n    \"name\": \"Jose\",\r\n    \"lastName\": \"Jose\",\r\n    \"email\": \"Pepe.Perez2@gmail.com\",\r\n    \"telephone\": \"4887304\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": 1, \"name\": \"ROLE_USER\"\r\n        },\r\n        {\r\n            \"id\": 2, \"name\": \"ROLE_ADMIN\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/2",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/4",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"4"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver endpoint search",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/search/buscar-username?username=admin",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"search",
+												"buscar-username"
+											],
+											"query": [
+												{
+													"key": "username",
+													"value": "admin"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver endpoint search (cambio de nombre)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_user}}/users/search/buscar-username?name=admin",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_user}}",
+												"users",
+												"search",
+												"buscar-username"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "admin"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"console.log('Inicio');",
+											"",
+											"// Pre-request script",
+											"// v1.0 - 09/12/2021",
+											"// @author: flemantico@gmail.com",
+											"",
+											"var impersonalTokenUrl = pm.environment.get('SECURITY_IMPERSONAL') + pm.environment.get('TOKEN_URI');",
+											"var tokenURL = impersonalTokenUrl;",
+											"var userPW = btoa(pm.environment.get('SECURITY_IMPERSONAL_USER')+':'+pm.environment.get('SECURITY_IMPERSONAL_PASS'));",
+											"var username = pm.environment.get('SECURITY_USER');",
+											"var password = pm.environment.get('SECURITY_PASSWORD');",
+											"var refreshToken = pm.variables.get('refreshToken');",
+											"",
+											"utils = {",
+											"    refreshTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"            header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'refresh_token', refreshToken, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }        ",
+											"    },",
+											"    createImpersonalTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"        header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }",
+											"    },    ",
+											"    updateVarToken: function (access_token, refresh_token) {",
+											"        postman.setGlobalVariable('accessToken', access_token);",
+											"        postman.setGlobalVariable('refreshToken', refresh_token);",
+											"    },",
+											"    logError: function (jsonErr, errorMessage) {",
+											"        if (errorMessage) {",
+											"            console.error(errorMessage);",
+											"        }",
+											"        console.error('Error: ');",
+											"        console.error(jsonErr);",
+											"    }",
+											"};",
+											"//La única diferencia entre el login impersonal y el officer es esta línea",
+											"utils.createTokenPostRequest = utils.createImpersonalTokenPostRequest;",
+											"//",
+											"",
+											"pm.test('Check variables', function () {",
+											"    if (!impersonalTokenUrl || !userPW) {",
+											"        console.error('Variables erróneas');",
+											"        postman.setNextRequest(null);",
+											"        return false;",
+											"    }",
+											"});",
+											"",
+											"pm.test('Login result', function () {",
+											"    var postRequest;",
+											"    var operation;",
+											"    var accessToken = postman.getGlobalVariable('accessToken');",
+											"    if (!accessToken || accessToken.isEmpty ) {",
+											"        postRequest = utils.createTokenPostRequest;",
+											"        operation = 'create';",
+											"    } else {",
+											"        postRequest = utils.refreshTokenPostRequest;",
+											"        operation = 'refresh';",
+											"    }",
+											"    console.info('operation: ' + operation);",
+											"",
+											"    pm.sendRequest(postRequest, function (err, response) {",
+											"        if (err) {",
+											"            utils.logError(err.json(), 'Error calling refresh token service');",
+											"        } else {",
+											"            var jsonResponse = response.json();",
+											"",
+											"            if (response.status != 'OK') {",
+											"                // Error checking for refresh token response",
+											"                utils.logError(response);",
+											"                // Al fallar el refresh, intentamos crear el token",
+											"                pm.sendRequest(utils.createTokenPostRequest, function (err, response) {",
+											"                    if (err) {",
+											"                        utils.logError(err, 'Error calling create token service');",
+											"                    } else {",
+											"                        jsonResponse = response.json();",
+											"",
+											"                        if (response.status != 'OK') {",
+											"                            utils.logError(response, 'No se pudo refrescar ni generar el token');",
+											"                            utils.updateVarToken('', '');",
+											"                            postman.setNextRequest(null);",
+											"                            console.info('No generado');",
+											"                            return false;",
+											"                        } else {",
+											"                            console.info('access_token: ' + jsonResponse.access_token)",
+											"                            console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                            utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                            console.info('Token generado correctamente');",
+											"                            return true;",
+											"                        }",
+											"                    }",
+											"                }); // END - pm.sendRequest create",
+											"            } else { // End Error checking for refresh token response",
+											"                console.info('access_token: ' + jsonResponse.access_token)",
+											"                console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                console.info('Token ' + operation + ' ejecutado correctamente');",
+											"                return true;",
+											"            }",
+											"        }",
+											"    }); // END - pm.sendRequest refresh",
+											"}); // END - pm.test Login",
+											"// END",
+											"console.info('Fin');",
+											"",
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "service-product",
+							"item": [
+								{
+									"name": "all",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "123456",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}"
+											],
+											"query": [
+												{
+													"key": "color",
+													"value": "verde",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get by id",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}/1",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get by name",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}/name/Sony Notebook",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}",
+												"name",
+												"Sony Notebook"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Galaxy 26\",\r\n    \"price\": 1500.0,\r\n    \"createdAt\": \"2021-12-13T12:48:28.113\",\r\n    \"expirationOn\": \"2021-12-13T12:48:28.113\",\r\n    \"status\": \"EXPIRED\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Samsung Galaxy S9\",\r\n    \"price\": 2000,\r\n    \"createdAt\": \"2022-12-13T22:09:38.195\",\r\n    \"expirationOn\": \"2025-12-14T22:09:38.195\",\r\n    \"status\": \"INACTIVE\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}/1",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_product}}/3",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_product}}",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"console.log('Inicio');",
+											"",
+											"// Pre-request script",
+											"// v1.0 - 09/12/2021",
+											"// @author: flemantico@gmail.com",
+											"",
+											"var impersonalTokenUrl = pm.environment.get('SECURITY_IMPERSONAL') + pm.environment.get('TOKEN_URI');",
+											"var tokenURL = impersonalTokenUrl;",
+											"var userPW = btoa(pm.environment.get('SECURITY_IMPERSONAL_USER')+':'+pm.environment.get('SECURITY_IMPERSONAL_PASS'));",
+											"var username = pm.environment.get('SECURITY_USER');",
+											"var password = pm.environment.get('SECURITY_PASSWORD');",
+											"var refreshToken = pm.variables.get('refreshToken');",
+											"",
+											"utils = {",
+											"    refreshTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"            header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'refresh_token', refreshToken, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }        ",
+											"    },",
+											"    createImpersonalTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"        header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }",
+											"    },    ",
+											"    updateVarToken: function (access_token, refresh_token) {",
+											"        postman.setGlobalVariable('accessToken', access_token);",
+											"        postman.setGlobalVariable('refreshToken', refresh_token);",
+											"    },",
+											"    logError: function (jsonErr, errorMessage) {",
+											"        if (errorMessage) {",
+											"            console.error(errorMessage);",
+											"        }",
+											"        console.error('Error: ');",
+											"        console.error(jsonErr);",
+											"    }",
+											"};",
+											"//La única diferencia entre el login impersonal y el officer es esta línea",
+											"utils.createTokenPostRequest = utils.createImpersonalTokenPostRequest;",
+											"//",
+											"",
+											"pm.test('Check variables', function () {",
+											"    if (!impersonalTokenUrl || !userPW) {",
+											"        console.error('Variables erróneas');",
+											"        postman.setNextRequest(null);",
+											"        return false;",
+											"    }",
+											"});",
+											"",
+											"pm.test('Login result', function () {",
+											"    var postRequest;",
+											"    var operation;",
+											"    var accessToken = postman.getGlobalVariable('accessToken');",
+											"    if (!accessToken || accessToken.isEmpty ) {",
+											"        postRequest = utils.createTokenPostRequest;",
+											"        operation = 'create';",
+											"    } else {",
+											"        postRequest = utils.refreshTokenPostRequest;",
+											"        operation = 'refresh';",
+											"    }",
+											"    console.info('operation: ' + operation);",
+											"",
+											"    pm.sendRequest(postRequest, function (err, response) {",
+											"        if (err) {",
+											"            utils.logError(err.json(), 'Error calling refresh token service');",
+											"        } else {",
+											"            var jsonResponse = response.json();",
+											"",
+											"            if (response.status != 'OK') {",
+											"                // Error checking for refresh token response",
+											"                utils.logError(response);",
+											"                // Al fallar el refresh, intentamos crear el token",
+											"                pm.sendRequest(utils.createTokenPostRequest, function (err, response) {",
+											"                    if (err) {",
+											"                        utils.logError(err, 'Error calling create token service');",
+											"                    } else {",
+											"                        jsonResponse = response.json();",
+											"",
+											"                        if (response.status != 'OK') {",
+											"                            utils.logError(response, 'No se pudo refrescar ni generar el token');",
+											"                            utils.updateVarToken('', '');",
+											"                            postman.setNextRequest(null);",
+											"                            console.info('No generado');",
+											"                            return false;",
+											"                        } else {",
+											"                            console.info('access_token: ' + jsonResponse.access_token)",
+											"                            console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                            utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                            console.info('Token generado correctamente');",
+											"                            return true;",
+											"                        }",
+											"                    }",
+											"                }); // END - pm.sendRequest create",
+											"            } else { // End Error checking for refresh token response",
+											"                console.info('access_token: ' + jsonResponse.access_token)",
+											"                console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                console.info('Token ' + operation + ' ejecutado correctamente');",
+											"                return true;",
+											"            }",
+											"        }",
+											"    }); // END - pm.sendRequest refresh",
+											"}); // END - pm.test Login",
+											"// END",
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "service-item",
+							"item": [
+								{
+									"name": "listar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_items}}/listar",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_items}}",
+												"listar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ver Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_items}}/ver/2/quantity/5",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_items}}",
+												"ver",
+												"2",
+												"quantity",
+												"5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "crear Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Mesa comedor antiguo\",\r\n    \"precio\": 5700,\r\n    \"createAt\": \"2019-06-14\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_items}}/crear",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_items}}",
+												"crear"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "editar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Silla comedor\",\r\n    \"precio\": 700\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_items}}/editar/12",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_items}}",
+												"editar",
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "eliminar Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url_gateway}}/{{path_items}}/eliminar/9",
+											"host": [
+												"{{base_url_gateway}}"
+											],
+											"path": [
+												"{{path_items}}",
+												"eliminar",
+												"9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "obtener configuración",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8005/obtener-config",
+											"host": [
+												"localhost"
+											],
+											"port": "8005",
+											"path": [
+												"obtener-config"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "obtener configuración Zuul",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8090/api/items/obtener-config",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api",
+												"items",
+												"obtener-config"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"console.log('Inicio');",
+											"",
+											"// Pre-request script",
+											"// v1.0 - 09/12/2021",
+											"// @author: flemantico@gmail.com",
+											"",
+											"var impersonalTokenUrl = pm.environment.get('SECURITY_IMPERSONAL') + pm.environment.get('TOKEN_URI');",
+											"var tokenURL = impersonalTokenUrl;",
+											"var userPW = btoa(pm.environment.get('SECURITY_IMPERSONAL_USER')+':'+pm.environment.get('SECURITY_IMPERSONAL_PASS'));",
+											"var username = pm.environment.get('SECURITY_USER');",
+											"var password = pm.environment.get('SECURITY_PASSWORD');",
+											"var refreshToken = pm.variables.get('refreshToken');",
+											"",
+											"utils = {",
+											"    refreshTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"            header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'refresh_token', refreshToken, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }        ",
+											"    },",
+											"    createImpersonalTokenPostRequest: {",
+											"        url: tokenURL,",
+											"        method: 'POST',",
+											"        header: [",
+											"            'Accept: application/json',",
+											"            'Content-Type: application/x-www-form-urlencoded',",
+											"            'Authorization: Basic ' + userPW            ",
+											"        ],",
+											"        body: {",
+											"            mode: 'urlencoded',",
+											"            urlencoded: [",
+											"                {key: 'username', value: username, disabled: false},",
+											"                {key: 'password', value: password, disabled: false},",
+											"                {key: 'grant_type', value: 'password', disabled: false}",
+											"            ]",
+											"        }",
+											"    },    ",
+											"    updateVarToken: function (access_token, refresh_token) {",
+											"        postman.setGlobalVariable('accessToken', access_token);",
+											"        postman.setGlobalVariable('refreshToken', refresh_token);",
+											"    },",
+											"    logError: function (jsonErr, errorMessage) {",
+											"        if (errorMessage) {",
+											"            console.error(errorMessage);",
+											"        }",
+											"        console.error('Error: ');",
+											"        console.error(jsonErr);",
+											"    }",
+											"};",
+											"//La única diferencia entre el login impersonal y el officer es esta línea",
+											"utils.createTokenPostRequest = utils.createImpersonalTokenPostRequest;",
+											"//",
+											"",
+											"pm.test('Check variables', function () {",
+											"    if (!impersonalTokenUrl || !userPW) {",
+											"        console.error('Variables erróneas');",
+											"        postman.setNextRequest(null);",
+											"        return false;",
+											"    }",
+											"});",
+											"",
+											"pm.test('Login result', function () {",
+											"    var postRequest;",
+											"    var operation;",
+											"    var accessToken = postman.getGlobalVariable('accessToken');",
+											"    if (!accessToken || accessToken.isEmpty ) {",
+											"        postRequest = utils.createTokenPostRequest;",
+											"        operation = 'create';",
+											"    } else {",
+											"        postRequest = utils.refreshTokenPostRequest;",
+											"        operation = 'refresh';",
+											"    }",
+											"    console.info('operation: ' + operation);",
+											"",
+											"    pm.sendRequest(postRequest, function (err, response) {",
+											"        if (err) {",
+											"            utils.logError(err.json(), 'Error calling refresh token service');",
+											"        } else {",
+											"            var jsonResponse = response.json();",
+											"",
+											"            if (response.status != 'OK') {",
+											"                // Error checking for refresh token response",
+											"                utils.logError(response);",
+											"                // Al fallar el refresh, intentamos crear el token",
+											"                pm.sendRequest(utils.createTokenPostRequest, function (err, response) {",
+											"                    if (err) {",
+											"                        utils.logError(err, 'Error calling create token service');",
+											"                    } else {",
+											"                        jsonResponse = response.json();",
+											"",
+											"                        if (response.status != 'OK') {",
+											"                            utils.logError(response, 'No se pudo refrescar ni generar el token');",
+											"                            utils.updateVarToken('', '');",
+											"                            postman.setNextRequest(null);",
+											"                            console.info('No generado');",
+											"                            return false;",
+											"                        } else {",
+											"                            console.info('access_token: ' + jsonResponse.access_token)",
+											"                            console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                            utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                            console.info('Token generado correctamente');",
+											"                            return true;",
+											"                        }",
+											"                    }",
+											"                }); // END - pm.sendRequest create",
+											"            } else { // End Error checking for refresh token response",
+											"                console.info('access_token: ' + jsonResponse.access_token)",
+											"                console.info('refresh_token: ' + jsonResponse.refresh_token)",
+											"                utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);",
+											"                console.info('Token ' + operation + ' ejecutado correctamente');",
+											"                return true;",
+											"            }",
+											"        }",
+											"    }); // END - pm.sendRequest refresh",
+											"}); // END - pm.test Login",
+											"// END",
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8005/actuator/refresh",
+									"host": [
+										"localhost"
+									],
+									"port": "8005",
+									"path": [
+										"actuator",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

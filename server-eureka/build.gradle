@@ -1,0 +1,51 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group 'com.project.microservices.app.server.eureka'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.3")
+}
+
+dependencies {
+    //parent
+    implementation project(':pom-parent')
+
+
+//    implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
+//    implementation 'org.springframework.cloud:spring-cloud-starter'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
+//    implementation 'org.glassfish.jaxb:jaxb-runtime'
+
+    //basic
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    //eureka server
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    testImplementation 'org.springframework.security:spring-security-test'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

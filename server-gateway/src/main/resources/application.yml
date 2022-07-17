@@ -1,0 +1,117 @@
+resilience4j:
+  #Configurar corto circuito
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        # defecto: 6
+        sliding-window-size: 10
+        #llamadas en estado semiabierto defecto: 4
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-type: TIME_BASED
+        minimum-number-of-calls: 4
+        #En estado semi abierto defecto: 50
+        wait-duration-in-open-state: 5s
+        #umbral
+        failure-rate-threshold: 50
+        event-consumer-buffer-size: 10
+        #llamadas lentas
+        #slow-call-rate-threshold: 50
+        #slow-call-duration-threshold: 2s
+    instances:
+      #Tenemoms una sola configuración, pero se pueden asignas muchas.
+      service-item-CB:
+        base-config: default
+      service-product-CB:
+        base-config: default
+  #Configurar time out si es menor o igual que la llamada lenta entra en time out porque tiene prioridad
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 2s
+    #Pasarla a la instancia items
+    instances:
+      service-item-CB:
+        base-config: default
+      service-product-CB:
+        base-config: default
+
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  application:
+    name: ${APPLICATION_NAME}
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      password: ${SERVER_CONFIGURATION_SECURITY_PASSWORD}
+      username: ${SERVER_CONFIGURATION_SECURITY_USER}
+      fail-fast: 'true'
+#-----------------------------------------------------------------------------------------------------------------------
+    gateway:
+      routes:
+        - id: service-product
+          # To allow multiple instances.
+          uri: lb://service-product
+          # Son reglas del request:
+          predicates:
+            - Path=/api/products/**
+            #\d+: Expresión regular (cualquier dígito)
+            #- Header= token, \d+
+            #Restringe a que el content-type solo sea JSON.
+            #- Header= Content-Type, application/json
+            #Solo acepta métodos POST
+            #- Method= GET, POST
+            #Solo acepta parámetros (url) con clave = color y valor = verde. Si no se pone valor aca, se acepta cualquier valor.
+            #- Query= color, verde
+            #Aceptaría cualquier color
+            #- Query= color
+            #Solo acepta esta cookie
+            #- Cookie= color, azul
+            #Se pueden agregar fechas, por ejemplo un rango.
+          filters:
+            #          - name: CircuitBreaker
+            #            args:
+            #              name: service-product-CB
+            #              statusCodes: 500
+            #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
+            - StripPrefix=2
+            #          #Para trabajar con CookieGatewayFilterFactory:
+            #          - cookies=Hola mi mensaje personalizado, usuario, AndresGuzman
+
+            #- name: cookies
+            #  args:
+            #    message: Hola mi mensaje personalizado
+            #    cookieName: usuario
+            #    cookieValue: AndresGuzman
+
+        - id: service-item
+          # To allow multiple instances.
+          uri: lb://service-item
+          predicates:
+            - Path=/api/items/**
+          filters:
+            #          #Add agrega, Set Actualiza
+            - StripPrefix=2
+        #          - AddRequestHeader=token-request, 123456
+        #          - AddResponseHeader=token-response, 12345678
+        #          - SetResponseHeader=Content-Type, text/plain
+        #          - AddRequestParameter=name, andres
+        - id: server-oauth
+          # To allow multiple instances.
+          uri: lb://server-oauth
+          predicates:
+            - Path=/api/security/**
+          filters:
+            - StripPrefix=2
+        - id: service-user
+          # To allow multiple instances.
+          uri: lb://service-user
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=2

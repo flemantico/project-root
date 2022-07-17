@@ -1,0 +1,41 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Data
+configuration:
+  text: ${spring.application.name} DEV
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: 'true'
+          lower-case-service-id: 'true'
+    #Si no lo pongo genera problemas con el nombre del host (ver si es con docker, ya que ya esta en la conf de eureka)
+    #discovery:
+      #enabled: 'true'
+  application:
+    name: server-gateway
+#-----------------------------------------------------------------------------------------------------------------------
+#Port configuration:
+server:
+  ##Se define un puerto fijo, porque es la puerta de enlace.
+  port: '8090'
+#-----------------------------------------------------------------------------------------------------------------------
+#Register in Eureka:
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    fetch-registry: 'true'
+    register-with-eureka: 'true'
+#-----------------------------------------------------------------------------------------------------------------------
+#Security configuration
+config:
+  security:
+    oauth:
+      jwt:
+        #---------------------------------------------------------------------------------------------------------------
+        #secret
+        key: ${SERVER_OAUTH_KEY}
+#-----------------------------------------------------------------------------------------------------------------------

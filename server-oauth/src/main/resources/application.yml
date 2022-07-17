@@ -1,0 +1,13 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      password: ${SERVER_CONFIGURATION_SECURITY_PASSWORD}
+      username: ${SERVER_CONFIGURATION_SECURITY_USER}
+      fail-fast: 'true'
+#-----------------------------------------------------------------------------------------------------------------------

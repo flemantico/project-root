@@ -1,0 +1,138 @@
+#Versión del compose file format:
+version: '3.7'
+
+#Arreglo de los contenedores o servicios:
+services:
+  config-server:
+    image: config-server:v1
+    ports:
+      - "8888:8888"
+    #Permitir el reinicio cuando se lo requiera
+    restart: always
+    #Asignar la red
+    networks:
+      - springcloud
+
+  eureka-server:
+    image: eureka-server:v1
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - springcloud
+
+  mysql8-server:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    restart: always
+    networks:
+      - springcloud
+    environment:
+      MYSQL_DATABASE: db_springboot_cloud
+      MYSQL_ROOT_PASSWORD: sasa
+
+  postgres12-server:
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - springcloud
+    environment: 
+      POSTGRES_DB: db_springboot_cloud
+      POSTGRES_PASSWORD: sasa      
+
+  product-server:
+    image: product-server:v1
+    #No lleva puerto porque es random.
+    #ports:
+    #  - "8761:8761"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - config-server
+      - eureka-server
+      - mysql8-server
+
+  item-server:
+    image: item-server:v1
+    ports:
+      - "8002:8002"
+      - "8005:8005"
+      - "8007:8007"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - config-server
+      - eureka-server
+      - product-server
+      
+  user-server:
+    image: user-server:v1
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - config-server
+      - eureka-server
+      - mysql8-server
+
+  oauth-server:
+    image: oauth-server:v1
+    ports:
+      - "9100:9100"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - config-server
+      - eureka-server
+      - user-server
+
+  zuul-server:
+    image: zuul-server:v1
+    ports:
+      - "8090:8090"
+    restart: always
+    networks:
+      - springcloud
+    depends_on:
+      - config-server
+      - eureka-server
+      - product-server
+      - item-server
+      - user-server
+      - oauth-server
+
+  microservicios-rabbitmq38:
+    image: rabbitmq:3.8-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+    networks:
+      - springcloud
+
+  server-zipkin:
+    image: server-zipkin:v1
+    ports:
+      - "9411:9411"
+    restart: always
+    networks:
+      - springcloud
+    depends_on: 
+      - microservicios-rabbitmq38
+      - microservicios-mysql8
+    environment: 
+      RABBIT_ADDRESSES: microservicios-rabbitmq38:5672
+      STORAGE_TYPE: mysql
+      MYSQL_USER: zipkin
+      MYSQL_PASS: zipkin
+      MYSQL_HOST: microservicios-mysql8
+
+#Crear la red
+networks:
+  springcloud

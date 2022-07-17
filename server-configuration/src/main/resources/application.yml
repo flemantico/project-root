@@ -1,0 +1,34 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+#-----------------------------------------------------------------------------------------------------------------------
+#Server configuration:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: ${SERVER_CONFIGURATION_DEFAULT_LABEL}
+          searchPaths: data-configuration/${SERVER_CONFIGURATION_CONFIGURATION_ENVIRONMENT}
+          skip-ssl-validation: ${SERVER_CONFIGURATION_SSL_VALIDATION}
+          uri: ${SERVER_CONFIGURATION_GIT_URI}
+          username: ${SERVER_CONFIGURATION_GIT_USER}
+          password: ${SERVER_CONFIGURATION_GIT_PASSWORD}
+        native:
+          search-locations: classpath:offline-repository/
+#-----------------------------------------------------------------------------------------------------------------------
+#Security configuration
+  security:
+    user:
+      name: ${SERVER_CONFIGURATION_SECURITY_USER}
+      password: ${SERVER_CONFIGURATION_SECURITY_PASSWORD}
+#-----------------------------------------------------------------------------------------------------------------------
+#Port configuration:
+server:
+  port: ${SERVER_CONFIGURATION_SERVER_PORT}
+#-----------------------------------------------------------------------------------------------------------------------
+#Server configuration:
+# fail-fast: Indicate that failure to connect to the server is fatal (default false).
+fail-fast: 'true'
+#-----------------------------------------------------------------------------------------------------------------------

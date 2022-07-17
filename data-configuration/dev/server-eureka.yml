@@ -1,0 +1,41 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Data
+configuration:
+  text: server-eureka DEV
+
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  cloud:
+    discovery:
+      enabled: 'true'
+  application:
+    name: server-eureka
+
+#TODO: revisar para agregarle seguridad a server-eureka
+#  security:
+#    user:
+#      name: root
+#      password: root
+#    basic:
+#      enabled: 'true'
+#-----------------------------------------------------------------------------------------------------------------------
+#Port configuration:
+server:
+  port: '8761'
+#-----------------------------------------------------------------------------------------------------------------------
+#Register in Eureka:
+eureka:
+  instance:
+    #Si no lo pongo genera problemas con el nombre del host en el server-gateway
+    hostname: ${SERVER_EUREKA_HOST_NAME}
+  client:
+    fetch-registry: 'false'
+    register-with-eureka: 'false'
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #En caso de tener una imagen dockerizada del servidor eureka usar:
+      #defaultZone: http://eureka-server:${server.port}/eureka/
+      #Para usar seguridad
+      #defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:8761/eureka/
+#-----------------------------------------------------------------------------------------------------------------------

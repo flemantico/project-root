@@ -1,0 +1,52 @@
+﻿Networking
+Storage and Database
+Security
+Monitoring and Analytics
+
+
+1 Crear el .jar:
+    Saltar los test para que no de error al querer conectarse al servidor de configuración o a las base de datos.
+	.\mvnw clean package -DskipTest
+	o usar clean_package_no_test.bat
+
+2 crear la imagen docker:
+	docker build -t user-server:v1 .
+
+3 ejecutar la imagen docker:
+    Se usa -P, porque es un puerto aleatorio.
+	docker run -P --network springcloud user-server:v1
+    springcloud: es el nombre de la red creada.
+    
+    Se especifíca un puerto.
+   	docker run -p 8090:8090 --network springcloud user-server:v1
+
+* Ejecutar:
+1 Setear variables:
+SERVER_CONFIGURATION_CONFIGURATION_ENVIRONMENT=[ENVIRONMENT] (dev, int, qas, prd)
+PROJECT_ROOT_GIT_USER=flemantico
+PROJECT_ROOT_GIT_PASSWORD=[TOKEN_GITHUB]
+2 server-configuration
+3 server-eureka
+4 server-oauth
+5 service-[APPS]
+6 server-gateway/zuul
+
+------------------------------------------------------------------------------------------------------------------------
+Especificación de dependencias:
+https://docs.google.com/spreadsheets/d/1406GgKI7IdRAAd8Sn8Ksaj6RcQUkca6NdZiwLTvI9SM/edit#gid=0
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+ TODO: Que hacer:
+------------------------------------------------------------------------------------------------------------------------
+[*] Ordenar los pom.
+[*] migrar a gradle.
+[ ] Usar Feign o REST?
+[*] migrar items a spring boot 2.7.1.
+[ ] Implementar docker para agilizar el desarrollo (correr microervicios).
+[ ] Agregar el Optional en las funciones del servicio.
+[ ] Centralizar log, por ejemplo loggerFactory en GlobalFunctions.
+[ ] ver en package com.project.springboot.app.commons.environments; MESSAGE_LOG.
+[ ] Ver WebFlux udemy.
+
+------------------------------------------------------------------------------------------------------------------------

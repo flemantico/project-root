@@ -1,0 +1,71 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Data
+configuration:
+  text: server-oauth DEV
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  cloud:
+    discovery:
+      enabled: 'true'
+  application:
+    name: server-oauth
+#-----------------------------------------------------------------------------------------------------------------------
+#Zipkin configuration:
+  zipkin:
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      probability: '1.0'
+#-----------------------------------------------------------------------------------------------------------------------
+#In case of launching an instance in a docker container, use this configuration
+#For it to take the configuration, the docker containers must be restarted
+    #base-url: http://server-zipkin:9411/
+    #sender:
+      #Para usar rabbit, tambien se debe agregar la dependencia
+      #type: rabbit
+  #rabbitmq:
+    #host: microservicios-rabbitmq38
+#-----------------------------------------------------------------------------------------------------------------------
+#Port configuration:
+server:
+  #A dynamic port is defined to allow multiple instances.
+  port: ${PORT:${SERVER_PORT:0}}
+#-----------------------------------------------------------------------------------------------------------------------
+#Register in Eureka:
+eureka:
+  instance:
+    #This is to handle the host dynamically
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    #Static mode
+    #hostname=localhost
+  client:
+    #Because Eureka doesn't register itself.
+    fetch-registry: 'true'
+    register-with-eureka: 'true'
+#-----------------------------------------------------------------------------------------------------------------------
+#Security configuration
+#This is used in frontend in basic authentication
+config:
+  security:
+    oauth:
+      client:
+        secret: ${SERVER_OAUTH_SECRET}
+        id: ${SERVER_OAUTH_ID}
+      jwt:
+        key: ${SERVER_OAUTH_KEY}
+#-----------------------------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------------------------------------------------
+#Zipkin configuration:
+#spring.sleuth.sampler.probability=1.0
+#spring.zipkin.base-url=http://localhost:9411/
+
+#-----------------------------------------------------------------------------------------------------------------------
+#RabbitMQ configuration:
+#En caso de levantar una instancia en un contenedor docker usar esta configuracion
+#Para que tome la configuracion se deben reiniciar los contenedores docker
+#spring.zipkin.base-url=http://server-zipkin:9411/
+#spring.rabbitmq.host=microservicios-rabbitmq38
+#Para usar rabbit, tambien se debe agregar la dependencia
+#spring.zipkin.sender.type=rabbit

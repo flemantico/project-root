@@ -1,0 +1,128 @@
+console.log('Inicio');
+
+// Pre-request script
+// v1.0 - 09/12/2021
+// @author: flemantico@gmail.com
+
+var impersonalTokenUrl = pm.environment.get('SECURITY_IMPERSONAL') + pm.environment.get('TOKEN_URI');
+var tokenURL = impersonalTokenUrl;
+var userPW = btoa(pm.environment.get('SECURITY_IMPERSONAL_USER')+':'+pm.environment.get('SECURITY_IMPERSONAL_PASS'));
+var username = pm.environment.get('SECURITY_USER');
+var password = pm.environment.get('SECURITY_PASSWORD');
+var refreshToken = pm.variables.get('refreshToken');
+
+utils = {
+    refreshTokenPostRequest: {
+        url: tokenURL,
+        method: 'POST',
+            header: [
+            'Accept: application/json',
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic ' + userPW            
+        ],
+        body: {
+            mode: 'urlencoded',
+            urlencoded: [
+                {key: 'username', value: username, disabled: false},
+                {key: 'password', value: password, disabled: false},
+                {key: 'refresh_token', refreshToken, disabled: false},
+                {key: 'grant_type', value: 'password', disabled: false}
+            ]
+        }        
+    },
+    createImpersonalTokenPostRequest: {
+        url: tokenURL,
+        method: 'POST',
+        header: [
+            'Accept: application/json',
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic ' + userPW            
+        ],
+        body: {
+            mode: 'urlencoded',
+            urlencoded: [
+                {key: 'username', value: username, disabled: false},
+                {key: 'password', value: password, disabled: false},
+                {key: 'grant_type', value: 'password', disabled: false}
+            ]
+        }
+    },    
+    updateVarToken: function (access_token, refresh_token) {
+        postman.setGlobalVariable('accessToken', access_token);
+        postman.setGlobalVariable('refreshToken', refresh_token);
+    },
+    logError: function (jsonErr, errorMessage) {
+        if (errorMessage) {
+            console.error(errorMessage);
+        }
+        console.error('Error: ');
+        console.error(jsonErr);
+    }
+};
+//La única diferencia entre el login impersonal y el officer es esta línea
+utils.createTokenPostRequest = utils.createImpersonalTokenPostRequest;
+//
+
+pm.test('Check variables', function () {
+    if (!impersonalTokenUrl || !userPW) {
+        console.error('Variables erróneas');
+        postman.setNextRequest(null);
+        return false;
+    }
+});
+
+pm.test('Login result', function () {
+    var postRequest;
+    var operation;
+    var accessToken = postman.getGlobalVariable('accessToken');
+    if (!accessToken || accessToken.isEmpty ) {
+        postRequest = utils.createTokenPostRequest;
+        operation = 'create';
+    } else {
+        postRequest = utils.refreshTokenPostRequest;
+        operation = 'refresh';
+    }
+    console.info('operation: ' + operation);
+
+    pm.sendRequest(postRequest, function (err, response) {
+        if (err) {
+            utils.logError(err.json(), 'Error calling refresh token service');
+        } else {
+            var jsonResponse = response.json();
+
+            if (response.status != 'OK') {
+                // Error checking for refresh token response
+                utils.logError(response);
+                // Al fallar el refresh, intentamos crear el token
+                pm.sendRequest(utils.createTokenPostRequest, function (err, response) {
+                    if (err) {
+                        utils.logError(err, 'Error calling create token service');
+                    } else {
+                        jsonResponse = response.json();
+
+                        if (response.status != 'OK') {
+                            utils.logError(response, 'No se pudo refrescar ni generar el token');
+                            utils.updateVarToken('', '');
+                            postman.setNextRequest(null);
+                            console.info('No generado');
+                            return false;
+                        } else {
+                            console.info('access_token: ' + jsonResponse.access_token)
+                            console.info('refresh_token: ' + jsonResponse.refresh_token)
+                            utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);
+                            console.info('Token generado correctamente');
+                            return true;
+                        }
+                    }
+                }); // END - pm.sendRequest create
+            } else { // End Error checking for refresh token response
+                console.info('access_token: ' + jsonResponse.access_token)
+                console.info('refresh_token: ' + jsonResponse.refresh_token)
+                utils.updateVarToken(jsonResponse.access_token, jsonResponse.refresh_token);
+                console.info('Token ' + operation + ' ejecutado correctamente');
+                return true;
+            }
+        }
+    }); // END - pm.sendRequest refresh
+}); // END - pm.test Login
+// END

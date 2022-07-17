@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Variables:
+LOG_DIR: Seteado como /logs
+HOSTNAME: Representa el nombre del hot
+log_file_name: Representa el nombre del microservicio
+APPLICATION_NAME: Representa el nombre del microservicio en caso de que no funcione log_file_name, porque al iniciar lo setea como log_file_name_UNDEFINED.
+La variable APPLICATION_NAME se debe setear manualmente.
+${sun.java.command}: Representa el nombre de la aplicación.
+-->
+<configuration debug="true" scan="true">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+    <property name="LOG_DIR" value="./logs/"/>
+    <!--<property name="FILE_NAME" value="server-configuration"/>-->
+    <!--<property name="FILE_NAME" value="${spring.application.name}"/>-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>%highlight(%-6level %d{ISO8601} [%(%t)] %(%C{1.}): %msg%n%throwable)</pattern>-->
+            <pattern>%highlight([%-5level] %d{"ISO8601"} [${APPLICATION_MESSAGE_LOG}] [${HOSTNAME}] [%contextName][%class.%method][thread=%thread] > %msg%n%throwable)</pattern>
+        </encoder>
+    </appender>
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--<fileNamePattern>${LOG_DIR}/${FILE_NAME}/log_%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!--<fileNamePattern>${LOG_DIR}/${sun.java.command}/log_%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <fileNamePattern>${LOG_DIR}/${APPLICATION_NAME}/log_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <!--<pattern>%-5level %d{ISO8601} [%thread] %logger{36} - %msg%n</pattern>-->
+            <pattern>%-5level %d{ISO8601} [${HOSTNAME}][${log_file_name}][%contextName][%class.%method][thread=%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.project.microservices.app" additivity="true">
+        <level value="TRACE"/>
+    </logger>
+    <root level="INFO">
+        <!--<root level="TRACE">-->
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
