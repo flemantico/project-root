@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 
 
 /**
- * Permite refrescar los componentes, clases, etc, que inyecta con value y configuraciones en tiempo real.
+ * Permite refrescar los componentes, clases, etc., que inyecta con value y configuraciones en tiempo real.
  */
 @RefreshScope
 @RestController
@@ -84,6 +84,7 @@ public class ItemController {
      * @param e Throwable
      * @return CompletableFuture<Item>
      */
+    @SuppressWarnings("unused")
     public CompletableFuture<Item> fallbackDetalleList(Long id, Integer quantity, Throwable e) {
         logger.info(e.getMessage());
 
@@ -105,6 +106,7 @@ public class ItemController {
      * @param e Throwable
      * @return Item
      */
+    @SuppressWarnings("unused")
     public Item fallbackDetalle(Long id, Integer quantity, Throwable e) {
         logger.info(e.getMessage());
 

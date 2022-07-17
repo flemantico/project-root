@@ -112,7 +112,6 @@ public final class GlobalsFunctions {
         if (isEmpty(object)) {
             LOGGER.info("Error: {}", createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
             return true;
-        }else{
         }
         return false;
     }
@@ -143,7 +142,7 @@ public final class GlobalsFunctions {
      * @param noTargetMethod: Array of methods that will not be used.
      */
     //public static final <T> void copyAvailableFields(@NotNull T source, @NotNull T target, String[] noTargetMethod) {
-    public static final <T> void copyAvailableFields(T source, T target, String[] noTargetMethod) {
+    public static <T> void copyAvailableFields(T source, T target, String[] noTargetMethod) {
         if (isEmpty(source) || isEmpty(target)) {
             return;
         }
@@ -160,6 +159,7 @@ public final class GlobalsFunctions {
                             for (String ntm : noTargetMethod) {
                                 if (method.getName().substring(3, method.getName().length()).toUpperCase().equals(ntm.toUpperCase())) {
                                     tm = false;
+                                    break;
                                 }
                             }
                         }
@@ -198,12 +198,11 @@ public final class GlobalsFunctions {
 
     /***
      * We centralize the log to be able to personalize and sanitize it.
-     * @param cls
+     * @param cls Class<?>
      * @return CommonsLogger
      */
     public static Logger loggerFactory(Class<?> cls){
-        Logger log = LoggerFactory.getLogger(cls.getName());
-        return log;
+        return LoggerFactory.getLogger(cls.getName());
     }
 
     public static void addInfo(String str, Logger log){

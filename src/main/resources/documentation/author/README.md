@@ -1,4 +1,4 @@
-# Author
+# Author information
 
 Este archivo contiene información acerca del autor de los microservicios.
 

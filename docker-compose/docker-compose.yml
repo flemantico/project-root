@@ -134,5 +134,5 @@ services:
       MYSQL_HOST: microservicios-mysql8
 
 #Crear la red
-networks:
-  springcloud
+#networks:
+#  springcloud

@@ -13,7 +13,7 @@ import java.util.Optional;
 //public class EjemploGlobalFilter implements org.springframework.cloud.gateway.filter.GlobalFilter, Ordered{
 public class EjemploGlobalFilter {
 
-    private final Logger logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
 
     //@Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -30,12 +30,15 @@ public class EjemploGlobalFilter {
             /*
              * Agregar el valor "token" en la respuesta
              */
-            Optional.ofNullable(exchange.getRequest().getHeaders().getFirst("token")).ifPresent(valor -> {
-                exchange.getResponse().getHeaders().add("token", valor);
-            });
+//            Optional.ofNullable(exchange.getRequest().getHeaders().getFirst("token")).ifPresent(valor -> {
+//                exchange.getResponse().getHeaders().add("token", valor);
+//            });
+
+            Optional.ofNullable(exchange.getRequest().getHeaders().getFirst("token")).ifPresent(valor ->
+                    exchange.getResponse().getHeaders().add("token", valor));
 
             /*
-             * Modificar el response
+             * Modificar él response.
              */
             exchange.getResponse().getCookies().add("color", ResponseCookie.from("color", "rojo").build());
             /*

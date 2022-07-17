@@ -17,7 +17,7 @@ import java.util.Optional;
 //public class CookieGatewayFilterFactory extends AbstractGatewayFilterFactory<CookieGatewayFilterFactory.Configuration>{
 public class CookieGatewayFilterFactory {
 
-    private final Logger logger = LoggerFactory.getLogger(CookieGatewayFilterFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(CookieGatewayFilterFactory.class);
 
 //	public CookieGatewayFilterFactory() {
 //		super(Configuration.class);
@@ -33,9 +33,12 @@ public class CookieGatewayFilterFactory {
             logger.info("ejecutando pre gateway filter factory: " + config.message);
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
 
-                Optional.ofNullable(config.cookieValue).ifPresent(cookieValue -> {
-                    exchange.getResponse().addCookie(ResponseCookie.from(config.cookieName, cookieValue).build());
-                });
+//                Optional.ofNullable(config.cookieValue).ifPresent(cookieValue -> {
+//                    exchange.getResponse().addCookie(ResponseCookie.from(config.cookieName, cookieValue).build());
+//                });
+
+                Optional.ofNullable(config.cookieValue).ifPresent(cookieValue ->
+                        exchange.getResponse().addCookie(ResponseCookie.from(config.cookieName, cookieValue).build()));
 
                 logger.info("ejecutando post gateway filter factory: " + config.message);
 

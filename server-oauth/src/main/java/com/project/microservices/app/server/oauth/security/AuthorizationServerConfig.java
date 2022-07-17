@@ -53,7 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @param security AuthorizationServerSecurityConfigurer
      */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         //Para que cualquier cliente pueda acceder a esta ruta para generar el token.
         security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
@@ -83,7 +83,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Esto está relacionado al endpoint del servidor de autorizaciones oauth.
+     * Esto está relacionado con el endpoint del servidor de autorizaciones oauth.
      *
      * @param endpoints AuthorizationServerEndpointsConfigurer
      */

@@ -16,7 +16,7 @@ spring:
     base-url: http://localhost:9411/
 #-----------------------------------------------------------------------------------------------------------------------
 #Database configuration:
-  ##Para utilizar se debe habiliar junto al driver de la base de datos en el archivo de dependencias (build.gradle)
+  ##Para utilizar se debe habilitar junto al driver de la base de datos en el archivo de dependencias (build.gradle)
   #---------------------------------------------------------------------------------------------------------------------
   #MySQL
   datasource:
@@ -30,7 +30,7 @@ spring:
     #Para corregir el warning de SSL
     #url: jdbc:mysql://localhost:3306/db_springboot_cloud?serverTimezone=America/Argentina/Cordoba&allowPublicKeyRetrieval=true&useSSL=false
     url: jdbc:mysql://localhost:3306/db_springboot_cloud
-    #Esta configuracion es para la imagen mysql dockerizada. Ademas se debe configurar igual que en productos (para MySQL no para PostgreSQL)
+    #Esta configuración es para la imagen mysql dockerizada. Ademas se debe configurar igual que en productos (para MySQL no para PostgreSQL)
     #url: jdbc:mysql://mysql8-server:3306/db_springboot_cloud
   #---------------------------------------------------------------------------------------------------------------------
   #Postgre SQL
@@ -44,12 +44,12 @@ spring:
       #hibernate:
         #jdbc:
           #lob:
-            #Si no se agrega esta configuracion falla spring boot con postgresql
+            #Si no se agrega esta configuración falla spring boot con postgresql
             #non_contextual_creation: 'true'
-    #El dialecto esta relacionado a la version de la base de datos.
+    #El dialecto está relacionado con la version de la base de datos.
     #database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     #hibernate:
-      #No se recomienda usar en produccion
+      #No se recomienda usar en producción
       #ddl-auto: create
   #---------------------------------------------------------------------------------------------------------------------
   jpa:

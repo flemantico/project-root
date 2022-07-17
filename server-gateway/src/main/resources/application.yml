@@ -24,7 +24,7 @@ resilience4j:
         base-config: default
       service-product-CB:
         base-config: default
-  #Configurar time out si es menor o igual que la llamada lenta entra en time out porque tiene prioridad
+  #Configurar él time-out si es menor o igual que la llamada lenta entra en time-out porque tiene prioridad.
   timelimiter:
     configs:
       default:

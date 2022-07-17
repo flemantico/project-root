@@ -11,7 +11,7 @@ spring:
         locator:
           enabled: 'true'
           lower-case-service-id: 'true'
-    #Si no lo pongo genera problemas con el nombre del host (ver si es con docker, ya que ya esta en la conf de eureka)
+    #Si no lo pongo genera problemas con el nombre del host (ver si es con docker, ya que ya está en la conf de eureka)
     #discovery:
       #enabled: 'true'
   application:

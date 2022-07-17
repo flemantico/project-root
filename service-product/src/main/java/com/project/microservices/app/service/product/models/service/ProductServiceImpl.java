@@ -19,7 +19,6 @@ public class ProductServiceImpl implements IProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> findAll() {
-//        return (List<Product>) productDao.findAll();
         return productDao.findAll();
     }
 

@@ -17,7 +17,7 @@ Monitoring and Analytics
 	docker run -P --network springcloud user-server:v1
     springcloud: es el nombre de la red creada.
     
-    Se especifíca un puerto.
+    Se especifica un puerto.
    	docker run -p 8090:8090 --network springcloud user-server:v1
 
 * Ejecutar:
@@ -43,7 +43,7 @@ https://docs.google.com/spreadsheets/d/1406GgKI7IdRAAd8Sn8Ksaj6RcQUkca6NdZiwLTvI
 [*] migrar a gradle.
 [ ] Usar Feign o REST?
 [*] migrar items a spring boot 2.7.1.
-[ ] Implementar docker para agilizar el desarrollo (correr microervicios).
+[ ] Implementar docker para agilizar el desarrollo (correr microservicios).
 [ ] Agregar el Optional en las funciones del servicio.
 [ ] Centralizar log, por ejemplo loggerFactory en GlobalFunctions.
 [ ] ver en package com.project.springboot.app.commons.environments; MESSAGE_LOG.

@@ -236,7 +236,7 @@ curl --location --request POST 'localhost:8090/api/security/oauth/token' \
 ##### Candidates:
 
 ###### Get one:
-Reemplazar [ID] por el id deseado para obtener la información completa de un candidato en particular.
+Reemplazar [ID] por el ID deseado para obtener la información completa de un candidato en particular.
 
 ```curl
 curl --location --request GET 'http://localhost:8020/candidates/[ID]' \
@@ -252,7 +252,7 @@ curl --location --request GET 'http://localhost:8020/candidates/' \
 ```
 
 ###### Get pages filter:
-Reemplazar [DATA] por el documento o nombre t apellido, para obtener una paginacón de los candidatos (nombre completo y DNI).
+Reemplazar [DATA] por el documento o nombre y apellido, para obtener una paginación de los candidatos (nombre completo y DNI).
 
 ```curl
 curl --location --request GET 'http://127.0.0.1:8020/candidates/filter/[DATA]' \
@@ -321,7 +321,7 @@ curl --location --request PUT 'http://localhost:8020/candidates/[ID]' \
 ```
 
 ###### Delete one:
-Reemplazar [ID] por el id deseado, para eliminar un canditato.
+Reemplazar [ID] por el ID deseado, para eliminar un candidato.
 
 ```curl
 curl --location --request DELETE 'http://localhost:8020/candidates/[ID]' \
