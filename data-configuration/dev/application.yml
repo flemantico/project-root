@@ -10,6 +10,9 @@ configuration:
 spring:
   main:
     banner-mode: 'off'
+  output:
+    ansi:
+      enabled: ALWAYS
   profiles:
     active: ${SERVER_CONFIGURATION_CONFIGURATION_ENVIRONMENT}
 #-----------------------------------------------------------------------------------------------------------------------
