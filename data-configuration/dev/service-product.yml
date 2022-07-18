@@ -57,6 +57,8 @@ spring:
       #Para habilitar el ddl
       #hibernate:
     #ddl-auto: create
+    show-sql: true
+    generate-ddl: true
 #-----------------------------------------------------------------------------------------------------------------------
 logging:
   level:
