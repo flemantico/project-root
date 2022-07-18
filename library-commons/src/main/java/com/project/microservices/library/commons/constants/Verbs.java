@@ -28,7 +28,15 @@ public class Verbs {
     public static final String DELETE_BY_NAME = "DELETE_BY_NAME";
 
     public static final String ROOT = "/";
-    public static final String ID = "/{id}";
-    public static final String NAME = "/name/{name}";
+    public static final String PAGES = "pages";
+    public static final String ID = "{id}";
+    public static final String NAME = "name/{name}";
 
+    public static final String ALL_OBJECTS = ROOT;
+
+    public static final String ALL_OBJECTS_PAGES = ROOT + PAGES;
+
+    public static final String OBJECT_BY_ID = ROOT + ID;
+
+    public static final String OBJECT_BY_NAME = ROOT + NAME;
 }

@@ -9,12 +9,16 @@ import com.project.microservices.library.commons.models.entity.http.ResponseErro
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import static com.project.microservices.library.commons.constants.Messages.*;
 
@@ -24,6 +28,18 @@ import static com.project.microservices.library.commons.constants.Messages.*;
 
 public final class GlobalsFunctions {
     static final Logger LOGGER = LoggerFactory.getLogger(GlobalsFunctions.class);
+
+    /**
+     * Retorna el puerto actualmente utilizado.
+     * @return Integer
+     */
+    public static Integer getPort(Environment env){
+        try {
+            return Integer.parseInt(Objects.requireNonNull(env.getProperty("local.server.port")));
+        }catch(NullPointerException e){
+            return 0;
+        }
+    }
 
     //@Value(Environments.MESSAGE_LOG)
     //private static String message_log;
@@ -72,6 +88,7 @@ public final class GlobalsFunctions {
         ResponseMeta meta = new ResponseMeta();
         meta.setMethod(httpServletRequest.getMethod());
         meta.setOperation(httpServletRequest.getRequestURI());
+        meta.setPort(response.getMeta().getPort());
         //meta.setUser(httpServletRequest.gecotUserPrincipal().getName());
         response.setMeta(meta);
     }
@@ -99,12 +116,30 @@ public final class GlobalsFunctions {
      * @return HttpStatus
      */
     public static HttpStatus verifyIsFoundEmptyResponse(Object object, ResponseClass response) {
+
+        final String get = "GET";
+
         if (isEmpty(object)) {
             LOGGER.info("Error: {}", createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
             return HttpStatus.NOT_FOUND;
         } else {
-            response.addDataItem(RESOURCE_FOUND_CODE, RESOURCE_FOUND_DETAIL, object);
-            return HttpStatus.FOUND;
+            switch (HttpMethod.valueOf(response.getMeta().getMethod())){
+                case GET:
+                    response.addDataItem(RESOURCE_FOUND_CODE, RESOURCE_FOUND_DETAIL, object);
+                    return HttpStatus.FOUND;
+                case POST:
+                    response.addDataItem(RESOURCE_CREATED_CODE, RESOURCE_CREATED_DETAIL, object);
+                    return HttpStatus.CREATED;
+                case PUT:
+                    response.addDataItem(RESOURCE_UPDATE_CODE, RESOURCE_UPDATE_DETAIL, object);
+                    return HttpStatus.CREATED;
+                case DELETE:
+                    response.addDataItem(RESOURCE_DELETE_CODE, RESOURCE_DELETE_DETAIL, object);
+                    return HttpStatus.NO_CONTENT;
+                default:
+                    response.addDataItem(METHOD_NOT_IMPLEMENTED_CODE, METHOD_NOT_IMPLEMENTED_DETAIL, object);
+                    return HttpStatus.NOT_IMPLEMENTED;
+            }
         }
     }
 

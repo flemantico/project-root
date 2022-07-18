@@ -4,6 +4,8 @@ import com.project.microservices.library.commons.constants.Status;
 import com.project.microservices.library.commons.models.entity.product.Product;
 import com.project.microservices.app.service.product.models.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,12 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional(readOnly = true)
+    public Page<Product> findAll(Pageable pageable) {
+        return productDao.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Product> findAll() {
         return productDao.findAll();
     }
@@ -26,6 +34,12 @@ public class ProductServiceImpl implements IProductService {
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
         return productDao.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsById(Long id) {
+        return productDao.existsById(id);
     }
 
     @Override
@@ -47,7 +61,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Product> findAllByStatus(Status status) {
         return productDao.findAllByStatus(status);
     }

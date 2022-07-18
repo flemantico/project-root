@@ -47,7 +47,7 @@ public class ItemServiceImpFeign implements IitemService {
 //    @Override
 //    public ResponseEntity<ResponseClass> findById(Long id, Integer quantity) {
 //        LOGGER.info(GET_BY_ID);
-//        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_ID, Integer.parseInt(env.getProperty("local.server.port")));
+//        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_ID, getPort());
 //
 //        try {
 //            httpStatus = HttpStatus.OK;

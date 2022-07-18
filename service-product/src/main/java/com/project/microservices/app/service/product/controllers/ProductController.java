@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,33 +32,20 @@ import static com.project.microservices.library.commons.utils.GlobalsFunctions.*
  */
 @RestController
 public class ProductController {
-    public static final Integer DIFFERENCE_TIME_IN_MINUTE = 5;
+    private static final Integer DIFFERENCE_TIME_IN_MINUTE = 5;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+    private static final String OBJECT = "/product";
 
-    //@Autowired
-    //private ModelMapper modelMapper;
-    static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
-    private final String OBJECT = "/products";
-    private final String OBJECT_ALL = OBJECT + ROOT;
-    private final String OBJECT_ID = OBJECT + ID;
-    private final String OBJECT_NAME = OBJECT + NAME;
     @Autowired
     private Environment env;
     @Value("${server.port}")
     private Integer port;
+
     @Autowired
     private IProductService productService;
 
-    HttpStatus httpStatus;
-	
-	/*@GetMapping("/listar")
-	public List<Product> listar(){
-		return productService.findAll().stream().map(product ->{
-			//product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-			product.setPort(port);
-			return product;
-		}).collect(Collectors.toList());
-	}*/
-	
+    private HttpStatus httpStatus;
+
 	/*@GetMapping("/ver/{id}")
 	public Product detalle(@PathVariable Long id) throws InterruptedException {
 		//Simulamos un error para el id 10.
@@ -68,7 +58,7 @@ public class ProductController {
 		
 		//Product product = productService.findById(id);
 		Product product = productService.findById(id).orElse(null);
-		product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+		product.setPort(getPort());
 		//product.setPort(port);
 		
 		*//*
@@ -82,11 +72,39 @@ public class ProductController {
 		return product;
 	}*/
 
-    @GetMapping(value = ROOT)
-    public ResponseEntity<ResponseClass> list(HttpServletRequest httpServletRequest) {
-
+    @GetMapping(value = ALL_OBJECTS_PAGES)
+    public ResponseEntity<ResponseClass> findAll(
+            @RequestParam (required = false, defaultValue = "0") int page,
+            @RequestParam (required = false, defaultValue = "10") int size,
+            @RequestParam (required = false, defaultValue = "id") String column,
+            @RequestParam (required = false, defaultValue = "true") boolean isAscending, HttpServletRequest httpServletRequest){
         LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_ALL, Integer.parseInt(env.getProperty("local.server.port")));
+        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_NAME, getPort(env));
+
+        try {
+            httpStatus = HttpStatus.OK;
+            Page<Product> pages;
+            if(!isAscending){
+                pages = productService.findAll(PageRequest.of(page, size, Sort.by(column).descending()));
+            }else{
+                pages = productService.findAll(PageRequest.of(page, size, Sort.by(column)));
+            }
+            verifyIsFoundEmptyResponse(pages, response);
+        } catch (Exception e) {
+            httpStatus = HttpStatus.CONFLICT;
+            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
+        }
+
+        LOGGER.info("Response: {}", sanitize(response));
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
+    @GetMapping(value = ALL_OBJECTS)
+    public ResponseEntity<ResponseClass> findAll(HttpServletRequest httpServletRequest) {
+        LOGGER.info(GET_ALL);
+        ResponseClass response = new ResponseClass(HttpMethod.GET, ALL_OBJECTS, getPort(env));
 
         try {
             httpStatus = HttpStatus.OK;
@@ -103,45 +121,30 @@ public class ProductController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-//    @GetMapping(value = ID)
-//    public ResponseEntity<ResponseClass> get(@PathVariable Long id) {
-//        LOGGER.info(GET_BY_ID);
-//        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_ID, Integer.parseInt(env.getProperty("local.server.port")));
-//
-//        try {
-//            httpStatus = HttpStatus.OK;
-//            Product product = productService.findById(id).orElse(null);
-//            verifyIsFoundEmptyResponse(product, response);
-//        } catch (Exception e) {
-//            httpStatus = HttpStatus.CONFLICT;
-//            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
-//        }
-//
-//        LOGGER.info("Response: {}", sanitize(response));
-//        return new ResponseEntity<>(response, httpStatus);
-//    }
-
-
-    @GetMapping(value = ID)
-    public Product get(@PathVariable Long id) {
+    @GetMapping(value = OBJECT_BY_ID)
+    public ResponseEntity<ResponseClass> get(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_BY_ID);
-        Product product = null;
+        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_ID, getPort(env));
+
         try {
             httpStatus = HttpStatus.OK;
-            product = productService.findById(id).orElse(null);
+            Product product = productService.findById(id).orElse(null);
+            verifyIsFoundEmptyResponse(product, response);
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), null));
+            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", product);
-        return product;
+        LOGGER.info("Response: {}", sanitize(response));
+        return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping(value = NAME)
-    public ResponseEntity<ResponseClass> get(@PathVariable String name) {
+    @GetMapping(value = OBJECT_BY_NAME)
+    public ResponseEntity<ResponseClass> findByName(@PathVariable String name, HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_BY_NAME);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_NAME, Integer.parseInt(env.getProperty("local.server.port")));
+        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_NAME, getPort(env));
 
         try {
             httpStatus = HttpStatus.OK;
@@ -150,87 +153,78 @@ public class ProductController {
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @PostMapping(ROOT)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseClass> create(@RequestBody Product product) {
+    @PostMapping(ALL_OBJECTS)
+    public ResponseEntity<ResponseClass> save(@RequestBody Product product, HttpServletRequest httpServletRequest) {
         LOGGER.info(CREATE);
-        ResponseClass response = new ResponseClass(HttpMethod.POST, OBJECT, Integer.parseInt(env.getProperty("local.server.port")));
+        ResponseClass response = new ResponseClass(HttpMethod.POST, ALL_OBJECTS, getPort(env));
 
-        httpStatus = HttpStatus.OK;
-        Product productReturn = productService.save(product);
-        verifyIsFoundEmptyResponse(productReturn, response);
+        try {
+            httpStatus = HttpStatus.OK;
+            Product productReturn = productService.save(product);
+            verifyIsFoundEmptyResponse(productReturn, response);
+        } catch (Exception e) {
+            httpStatus = HttpStatus.CONFLICT;
+            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
+        }
 
         LOGGER.info("Response: {}", sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @PutMapping(ID)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ResponseClass> edit(@RequestBody Product product, @PathVariable Long id) {
+    @PutMapping(OBJECT_BY_ID)
+    public ResponseEntity<ResponseClass> save(@RequestBody Product product, @PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(EDIT);
-        ResponseClass response = new ResponseClass(HttpMethod.PUT, OBJECT, Integer.parseInt(env.getProperty("local.server.port")));
+        ResponseClass response = new ResponseClass(HttpMethod.PUT, OBJECT_BY_ID, getPort(env));
 
         try {
             httpStatus = HttpStatus.OK;
             Product productDb = productService.findById(id).orElse(null);
-            verifyIsFoundEmptyResponse(product, response);
-            String[] noTargetMethod = {"createdAt"};
-            copyAvailableFields(product, productDb, noTargetMethod);
-            Product productSaved = productService.save(productDb);
-            verifyIsFoundEmptyResponse(productSaved, response);
+            if (HttpStatus.FOUND.equals(verifyIsFoundEmptyResponse(productDb, response))){
+                String[] noTargetMethod = {"createdAt"};
+                copyAvailableFields(product, productDb, noTargetMethod);
+                productService.save(productDb);
+            }
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
-
-
-
-
-		/*Product productDb = productService.findById(id).orElse(null);
-		verifyIsFoundEmptyResponse(product, response);
-		if (!isEmpty(productDb)){
-			String[] noTargetMethod = {"createdAt"};
-			copyAvailableFields(product, productDb, noTargetMethod);
-			Product productSaved = productService.save(productDb);
-			verifyIsFoundEmptyResponse(productSaved, response);
-		}*/
-
-        //return ResponseEntity.ok(response);
     }
 
-    //@PostMapping(ROOT)
-    //@ResponseStatus(HttpStatus.CREATED)
-    //public Product create2(@RequestBody Product product) {
-    //	LOGGER.info(CREATE);
-    //	return productService.save(product);
-    //}
-	
-/*	@PutMapping(ID)
-	@ResponseStatus(HttpStatus.CREATED)
-	public Product edit(@RequestBody Product product, @PathVariable Long id) {
-		LOGGER.info(EDIT);
-		Product productDb = productService.findById(id).orElse(null);
-		
-		productDb.setName(product.getName());
-		productDb.setPrice(product.getPrice());
-		
-		return productService.save(productDb);
-	}*/
-
-    @DeleteMapping(ID)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping(value = OBJECT_BY_ID)
+    public ResponseEntity<ResponseClass> delete(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(DELETE);
-        productService.deleteById(id);
+        ResponseClass response = new ResponseClass(HttpMethod.DELETE, OBJECT_BY_ID, getPort(env));
+
+        try {
+            httpStatus = HttpStatus.OK;
+            Product product = productService.findById(id).orElse(null);
+            if (HttpStatus.NO_CONTENT.equals(verifyIsFoundEmptyResponse(product, response))){
+                productService.deleteById(id);
+            }
+        } catch (Exception e) {
+            httpStatus = HttpStatus.CONFLICT;
+            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+        }finally{
+            setResponse(response, httpServletRequest);
+        }
+
+        LOGGER.info("Response: {}", sanitize(response));
+        return new ResponseEntity<>(response, httpStatus);
     }
 
     /**
@@ -258,5 +252,4 @@ public class ProductController {
             }
         }
     }
-
 }
