@@ -15,7 +15,6 @@ import java.util.List;
 @FeignClient(name = "service-product")
 public interface ProductClientRest {
 
-    //@GetMapping("/listar")
     @GetMapping("/")
     List<Product> listar();
 
@@ -26,15 +25,12 @@ public interface ProductClientRest {
 //    ResponseEntity<ResponseClass> findById(@PathVariable Long id);
 
 
-    //@PostMapping("/crear")
     @PostMapping("/")
     Product crear(@RequestBody Product product);
 
-    //@PutMapping("/editar/{id}")
     @PutMapping("/{id}")
     Product editar(@RequestBody Product product, @PathVariable Long id);
 
-    //@DeleteMapping("/eliminar/{id}")
     @DeleteMapping("/{id}")
     void eliminar(@PathVariable Long id);
 }

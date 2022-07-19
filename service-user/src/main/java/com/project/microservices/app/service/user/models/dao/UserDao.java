@@ -9,9 +9,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 /**
- * RepositoryRestResource: Define el comportamiento rest
+ * RepositoryRestResource: Define el comportamiento rest. El resurso brinda soporte hipermedia.
  */
-@RepositoryRestResource(path = "users")
+@RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserDao extends JpaRepository<User, Long> {
     //@Query("select u from User u where u.username = ?1 and u.email = ?2")
     //User findByUsernameAndEmail(String username, String email);
@@ -22,7 +22,6 @@ public interface UserDao extends JpaRepository<User, Long> {
      */
     @RestResource(path = "buscar-username")
     User findByUsername(@Param("username") String username);
-    //public User findByUsername(String username);
 
     //Desde las clases
     @Query("select u from User u where u.username = ?1")

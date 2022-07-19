@@ -16,12 +16,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
+//import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+//import java.awt.*;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.project.microservices.library.commons.constants.Verbs.*;
@@ -45,32 +46,6 @@ public class ProductController {
     private IProductService productService;
 
     private HttpStatus httpStatus;
-
-	/*@GetMapping("/ver/{id}")
-	public Product detalle(@PathVariable Long id) throws InterruptedException {
-		//Simulamos un error para el id 10.
-		if(id.equals(10L)) {
-			throw new IllegalStateException("Product no encontrado");
-		}
-		if(id.equals(7L)) {
-			TimeUnit.SECONDS.sleep(5);
-		}
-		
-		//Product product = productService.findById(id);
-		Product product = productService.findById(id).orElse(null);
-		product.setPort(getPort());
-		//product.setPort(port);
-		
-		*//*
-		try {
-			 //Time-out 2'', por defecto es de 1''
-			Thread.sleep(2000L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		*//*
-		return product;
-	}*/
 
     @GetMapping(value = ALL_OBJECTS_PAGES)
     public ResponseEntity<ResponseClass> findAll(
@@ -230,26 +205,53 @@ public class ProductController {
     /**
      * Automatic task that changes the status to expired of products whose expiration date has expired.
      */
-    @Scheduled(initialDelayString = "${update.expired.product.fixedDelay}", fixedDelayString = "${update.expired.product.fixedDelay}")
-    public void updateExpirationProductInstances() {
-        //final List<Product> pendingList = productService.findAllByStatus(Status.AUTHORIZED);
-        final List<Product> pendingList = productService.findAll();
+//    @Scheduled(initialDelayString = "${update.expired.product.fixedDelay}", fixedDelayString = "${update.expired.product.fixedDelay}")
+//    public void updateExpirationProductInstances() {
+//        //final List<Product> pendingList = productService.findAllByStatus(Status.AUTHORIZED);
+//        final List<Product> pendingList = productService.findAll();
+//
+//        if (isNotNull(pendingList) && !pendingList.isEmpty()) {
+//            LOGGER.info("updateInstances - " + OBJECT + " : {}", sanitize(pendingList.size()));
+//
+//            for (Product dto : pendingList) {
+//                try {
+//                    LocalDateTime dateTimeExpiration = LocalDateTime.parse(dto.getExpirationOn().toString(), DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS"));
+//
+//                    if (dateTimeExpiration.isBefore(LocalDateTime.now().minusMinutes(DIFFERENCE_TIME_IN_MINUTE))) {
+//                        dto.setStatus(Status.EXPIRED);
+//                        productService.save(dto);
+//                    }
+//                } catch (Exception e) {
+//                    LOGGER.error("Error al invocar updateExpirationProductInstances", sanitize(e));
+//                }
+//            }
+//        }
+//    }
 
-        if (isNotNull(pendingList) && !pendingList.isEmpty()) {
-            LOGGER.info("updateInstances - " + OBJECT + " : {}", sanitize(pendingList.size()));
 
-            for (Product dto : pendingList) {
-                try {
-                    LocalDateTime dateTimeExpiration = LocalDateTime.parse(dto.getExpirationOn().toString(), DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS"));
+	/*@GetMapping("/ver/{id}")
+	public Product detalle(@PathVariable Long id) throws InterruptedException {
+		//Simulamos un error para el id 10.
+		if(id.equals(10L)) {
+			throw new IllegalStateException("Product no encontrado");
+		}
+		if(id.equals(7L)) {
+			TimeUnit.SECONDS.sleep(5);
+		}
 
-                    if (dateTimeExpiration.isBefore(LocalDateTime.now().minusMinutes(DIFFERENCE_TIME_IN_MINUTE))) {
-                        dto.setStatus(Status.EXPIRED);
-                        productService.save(dto);
-                    }
-                } catch (Exception e) {
-                    LOGGER.error("Error al invocar updateExpirationProductInstances", sanitize(e));
-                }
-            }
-        }
-    }
+		//Product product = productService.findById(id);
+		Product product = productService.findById(id).orElse(null);
+		product.setPort(getPort());
+		//product.setPort(port);
+
+		*//*
+		try {
+			 //Time-out 2'', por defecto es de 1''
+			Thread.sleep(2000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		*//*
+		return product;
+	}*/
 }
