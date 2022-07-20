@@ -1,0 +1,90 @@
+#-----------------------------------------------------------------------------------------------------------------------
+#Data
+configuration:
+  text: core-product DEV
+#-----------------------------------------------------------------------------------------------------------------------
+#Bacis' configuration of microservice:
+spring:
+  application:
+    name: core-product
+#-----------------------------------------------------------------------------------------------------------------------
+#Zipkin configuration:
+  sleuth:
+    sampler:
+      probability: '1.0'
+  zipkin:
+    base-url: http://localhost:9411/
+#-----------------------------------------------------------------------------------------------------------------------
+#Database configuration:
+  ##Para utilizar se debe habilitar junto al driver de la base de datos en el archivo de dependencias (build.gradle)
+  #---------------------------------------------------------------------------------------------------------------------
+  #MySQL
+  datasource:
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER_NAME}
+    #Configurar la zona horaria.
+    #url: jdbc:mysql://localhost:3306/db_springboot_cloud?serverTimezone=America/Argentina/Cordoba
+    #Para corregir el error Public Key Retrieval
+    #url: jdbc:mysql://localhost:3306/db_springboot_cloud?serverTimezone=America/Argentina/Cordoba&allowPublicKeyRetrieval=true
+    #Para corregir el warning de SSL
+    #url: jdbc:mysql://localhost:3306/db_springboot_cloud?serverTimezone=America/Argentina/Cordoba&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/db_springboot_cloud
+      #Esta configuración es para la imagen mysql dockerizada. Ademas se debe configurar igual que en productos (para MySQL no para PostgreSQL)
+      #url: jdbc:mysql://mysql8-server:3306/db_springboot_cloud
+      #-----------------------------------------------------------------------------------------------------------------
+      #Postgre SQL
+      #datasource:
+      #driver-class-name: org.postgresql.Driver
+      #username: ${DB_USER_NAME}
+      #url: jdbc:postgresql://localhost:5432/db_springboot_cloud
+      #password: ${DB_PASSWORD}
+      #jpa:
+      #properties:
+      #hibernate:
+      #jdbc:
+      #lob:
+      #Si no se agrega esta configuración falla spring boot con postgresql
+      #non_contextual_creation: 'true'
+      #El dialecto esta relacionado a la version de la base de datos.
+      #database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+      #hibernate:
+      #No se recomienda usar en producción
+    #ddl-auto: create
+  #---------------------------------------------------------------------------------------------------------------------
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+      #Para habilitar el ddl
+      #hibernate:
+    #ddl-auto: create
+    show-sql: true
+    generate-ddl: true
+#-----------------------------------------------------------------------------------------------------------------------
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+#-----------------------------------------------------------------------------------------------------------------------
+#Port configuration:
+#A dynamic port is defined to allow multiple instances.
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+#-----------------------------------------------------------------------------------------------------------------------
+#Register in Eureka:
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    ##Esto es para manejar estáticamente el host. Se pasa a dinámico.
+    #hostname: localhost
+  client:
+    register-with-eureka: 'true'
+    fetch-registry: 'true'
+#-----------------------------------------------------------------------------------------------------------------------
+#Application configuration
+#5000:1'' | 60000: 5'
+update:
+  expired:
+    product:
+      fixedDelay: '5000'
+#-----------------------------------------------------------------------------------------------------------------------
