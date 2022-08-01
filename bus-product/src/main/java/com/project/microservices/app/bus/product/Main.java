@@ -31,7 +31,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.setProperty("log_file_name", "service-product");
+        System.setProperty("log_file_name", "bus-product");
         SpringApplication.run(Main.class, args);
 
         object.getProperties();

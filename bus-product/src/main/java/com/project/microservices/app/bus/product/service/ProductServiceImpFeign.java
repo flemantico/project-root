@@ -18,17 +18,17 @@ public class ProductServiceImpFeign implements ProductService {
     @Autowired
     private ProductFeignClient productFeignClient;
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Page<Product>> page(Pageable pageable) {
-        return productFeignClient.pages(pageable);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<List<Product>> all() {
-        return productFeignClient.all();
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Optional<Page<Product>> page(Pageable pageable) {
+//        return productFeignClient.pages(pageable);
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Optional<List<Product>> all() {
+//        return productFeignClient.all();
+//    }
 
     @Override
     @Transactional(readOnly = true)

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-
-    Optional<Page<Product>> page(Pageable pageable);
-
-    Optional<List<Product>> all();
+//
+//    Optional<Page<Product>> page(Pageable pageable);
+//
+//    Optional<List<Product>> all();
 
     Optional<Product> find(Long id);
 

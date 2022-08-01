@@ -22,8 +22,8 @@ resilience4j:
       #Tenemoms una sola configuración, pero se pueden asignas muchas.
       service-item-CB:
         base-config: default
-#      service-product-CB:
-#        base-config: default
+      bus-product-CB:
+        base-config: default
       core-product-CB:
         base-config: default
   #Configurar el time-out si es menor o igual que la llamada lenta entra en time-out porque tiene prioridad.
@@ -36,8 +36,8 @@ resilience4j:
     instances:
       service-item-CB:
         base-config: default
-#      service-product-CB:
-#        base-config: default
+      bus-product-CB:
+        base-config: default
       core-product-CB:
         base-config: default
 #-----------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ spring:
 #-----------------------------------------------------------------------------------------------------------------------
     gateway:
       routes:
-        - id: service-product
+        - id: bus-product
           # To allow multiple instances.
           # to access through the load balancer
           uri: lb://bus-product
@@ -81,7 +81,7 @@ spring:
           filters:
             #          - name: CircuitBreaker
             #            args:
-            #              name: service-product-CB
+            #              name: bus-product-CB
             #              statusCodes: 500
             #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
             - StripPrefix=2
@@ -116,7 +116,7 @@ spring:
           filters:
             #          - name: CircuitBreaker
             #            args:
-            #              name: service-product-CB
+            #              name: bus-product-CB
             #              statusCodes: 500
             #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
             - StripPrefix=2

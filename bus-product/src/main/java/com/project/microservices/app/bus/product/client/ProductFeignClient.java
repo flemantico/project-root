@@ -15,20 +15,20 @@ import static com.project.microservices.library.commons.constants.Microservices.
 
 /**
  * Consume un servicio de forma remota mediante una interfaz. Lo identifica mediante el nombre de application.properties.
- * Al estar registrado en Eureka ya no hace falta la URL. @FeignClient(name = "service-product", url="localhost:8089")
+ * Al estar registrado en Eureka ya no hace falta la URL. @FeignClient(name = "bus-product", url="localhost:8089")
  * Siempre se debe agregar search antes del nombre del método para usar los endpoint REST.
  * @author l0513599
  */
 
-@FeignClient(name = CORE_PRODUCT)
+@FeignClient(name = "core-product")
 //@RequestMapping(PRODUCT_PATH)
 public interface ProductFeignClient {
 
-    @GetMapping(path = "/products/pages")
-    Optional<Page<Product>> pages(Pageable pageable);
-
-    @GetMapping(path = "/products")
-    Optional<List<Product>> all();
+//    @GetMapping(path = "/products/pages")
+//    Optional<Page<Product>> pages(Pageable pageable);
+//
+//    @GetMapping(path = "/products")
+//    Optional<List<Product>> all();
 
     @GetMapping(path = "/products/{id}")
     Optional<Product> find(@PathVariable Long id);
