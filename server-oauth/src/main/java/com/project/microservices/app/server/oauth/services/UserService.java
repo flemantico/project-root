@@ -1,7 +1,7 @@
 package com.project.microservices.app.server.oauth.services;
 
 import brave.Tracer;
-import com.project.microservices.app.server.oauth.clients.UserFeignClient;
+import com.project.microservices.app.server.oauth.client.UserFeignClient;
 import com.project.microservices.library.commons.models.entity.user.User;
 
 import feign.FeignException;
@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.project.microservices.library.commons.utils.GlobalsFunctions.*;
@@ -36,10 +37,10 @@ public class UserService implements IUserService, UserDetailsService {
     //@Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            User user = client.findByUsername(username);
+            Optional<User> user = client.findByUsername(username);
 
             //We get the list of roles.
-            List<GrantedAuthority> authorities = user.getRoles()
+            List<GrantedAuthority> authorities = user.get().getRoles()
                     .stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .peek(authority -> addInfo("Role: " + authority.getAuthority(), log))
@@ -50,7 +51,7 @@ public class UserService implements IUserService, UserDetailsService {
                 addInfo("User '" + username + "' has not roles assigned.", log);
                 throw new UsernameNotFoundException("User '" + username + "' has not roles assigned.");
             }
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), user.get().getEnabled(), true, true, true, authorities);
         } catch (FeignException e) {
             String message = "Error in the login, the user '" + username + "' does not exist";
             log.error(message);
@@ -61,11 +62,16 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
     public User findByUsername(String username) {
-        return client.findByUsername(username);
+        return client.findByUsername(username).get();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return client.findById(id).get();
     }
 
     @Override
     public User update(User user, Long id) {
-        return client.update(user, id);
+        return client.update(user, id).get();
     }
 }

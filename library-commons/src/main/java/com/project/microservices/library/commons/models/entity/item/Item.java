@@ -1,12 +1,21 @@
 package com.project.microservices.library.commons.models.entity.item;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.microservices.library.commons.models.entity.product.Product;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /***
  * It's not an entity class, just use Product.
  */
-public class Item {
+@Data
+public class Item implements Serializable{
+    private static final long serialVersionUID = 4225159998616601686L;
 
+    //TODO
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     private Product product;
     private Integer quantity;
 
@@ -18,24 +27,9 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getTotal() {
-        return product.getPrice() * quantity.doubleValue();
-    }
+//    @JsonIgnore
+//    public Double getTotal() {
+//        return product.getPrice() * quantity.doubleValue();
+//    }
 
 }

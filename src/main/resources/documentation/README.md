@@ -95,10 +95,6 @@ docker build -t item-server:v1 .
 ```
 
 ```bash
-docker build -t zuul-server:v1 .
-```
-
-```bash
 docker build -t gateway-server:v1 .
 ```
 
@@ -174,10 +170,6 @@ docker run -p 8002:8002 --name item-server --network springcloud item-server:v1
 ```
 
 ```bash
-docker run -p 8090:8090 --name zuul-server --network springcloud zuul-server:v1
-```
-
-```bash
 docker run -p 8090:8090 --name gateway-server --network springcloud gateway-server:v1
 ```
 
@@ -214,7 +206,7 @@ docker-compose up -d product-server
 docker-compose up -d item-server
 docker-compose up -d user-server
 docker-compose up -d oauth-server
-docker-compose up -d zuul-server
+docker-compose up -d gateway-server
 ```
 ## API
 

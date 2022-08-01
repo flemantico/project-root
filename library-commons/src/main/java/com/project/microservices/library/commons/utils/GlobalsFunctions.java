@@ -151,6 +151,16 @@ public final class GlobalsFunctions {
         return false;
     }
 
+    public static HttpStatus verifyIsFoundEmpty(Object object) throws Exception {
+        if (isEmpty(object)) {
+            LOGGER.info("Error: {}", Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL);
+            return HttpStatus.NOT_FOUND;
+        }else{
+            return HttpStatus.OK;
+        }
+    }
+
+
     public static Boolean isEmpty(Object object) {
         return object == null;
     }

@@ -5,14 +5,19 @@
 ## Content
 - [1. Considerations](#Considerations)
 - [2. Dependencies](#Dependencies)
-- [3. Release notes](#Releases)
-- [4. Prerequisites](#Prerequisites)
-- [5. IDE](#IDE)
-- [6. Technologies](#Technologies)
-- [7. Specifications](#Specifications)
-- [8. Author](#Author)
+- [3. Schema](#Schema)
+- [4. Release notes](#Releases)
+- [5. Prerequisites](#Prerequisites)
+- [6. IDE](#IDE)
+- [7. Technologies](#Technologies)
+- [8. Specifications](#Specifications)
+- [9. Author](#Author)
 
 ## Considerations
+
+El proyecto cuenta con una configuración centralizada, un servidor de autodescubrimiento, tolerancia a fallos, balanceo de cargas y autoescalado.
+Cuenta con la implementación de Spring Data REST y API RESTful HAL.
+
 >Nota: Antes de importar este proyecto, tener en cuenta que solo está configurado para correr localmente o en contenedores docker en un ambiente local.
 Este proyecto está en un estado de prueba, actualmente en desarrollo.
 Se crearon los proyectos:
@@ -25,8 +30,7 @@ Este repositorio contiene el código fuente de los microservicios e información
 **server-configuration:** Servidor de configuraciones.  
 **server-eureka:** Servidor eureka para poder acceder a los microservicios por su nombre asignado.  
 **server-oauth:** Servidor de autenticación.  
-**server-gateway:** Servidor gateway que se usa como puerta de enlace a los microservicios (en caso de no utilizar zuul).    
-**server-zuul:** Servidor zuul que se usa como puerta de enlace a los microservicios(en caso de no utilizar gateway).     
+**server-gateway:** Servidor gateway que se usa como puerta de enlace a los microservicios, centraliza la seguridad y el manejo de cors.  
 - **servidores adicionales:**  
 **mysql-server:** Servidor de datos.  
 **rabbitmq-server:**   
@@ -37,8 +41,19 @@ Este repositorio contiene el código fuente de los microservicios e información
 **service-item:**  Servicio de items.   
 **microservices-configuration:** Contiene los archivos de configuración.
 
+## Schema
+**Esquema general de los microservicios:**  
+El frontend se comunica con el server-gateway para acceder a los distintos microservicios (por ejemplo service-user) mediante rutas.  
+El gateway centraliza la seguridad, por lo que se debe autorizar (server-oauth) antes de acceder al microservici, además usa un balanceador de carga.
+Los distintos microservicios son los que tienen el acceso a la base de datos.  
+Todos los microservicios tienen la configuración centralizada gracias (server-configuration).
+
+![Descripción de la imagen](src/main/resources/documentation/assets/schema.png)
+![Descripción de la imagen](src/main/resources/documentation/assets/dependencies.excalidraw)
+
+
 ## Dependencies
-Descripción de la estructura de las dependencias:  
+**Descripción de la estructura de las dependencias:**  
 
 ![Descripción de la imagen](src/main/resources/documentation/assets/dependencies.png)
   

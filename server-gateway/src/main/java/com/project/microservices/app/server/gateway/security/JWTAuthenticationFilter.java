@@ -27,7 +27,7 @@ public class JWTAuthenticationFilter implements WebFilter {
                 .switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
                 //Si contien el Bearer se quita el Bearer. Se usa map, porque se usa un String.
                 .map(token -> token.replace("Bearer ", ""))
-                //Se usa flatMap, porque se devuelve un Mono (flijo).
+                //Se usa flatMap, porque se devuelve un Mono (flujo).
                 .flatMap(token -> authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(null, token)))
                 //Se emite el authnetication y se guarda en el contexto la autenticación con el token validado.
                 .flatMap(authentication -> chain.filter(exchange)

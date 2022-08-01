@@ -2,20 +2,27 @@ package com.project.microservices.app.service.item.service;
 
 import com.project.microservices.library.commons.models.entity.item.Item;
 import com.project.microservices.library.commons.models.entity.product.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IitemService {
 
-    List<Item> findAll();
+    Optional<Page<Item>> page(Pageable pageable);
 
-    Item findById(Long id, Integer quantity);
+    Optional<List<Item>> all();
 
-    //ResponseEntity<ResponseClass> findById(Long id, Integer quantity);
+    Optional<Item> find(Long id, Integer quantity);
 
-    Product save(Product product);
+    Optional<Boolean> exists(Long id);
 
-    Product update(Product product, Long id);
+    Optional<Item> save(Product product);
+
+    Optional<Item> save(Product product, Long id);
 
     void delete(Long id);
+
+    Optional<Item> findByName(String name, Integer quantity);
 }

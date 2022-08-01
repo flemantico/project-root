@@ -6,6 +6,11 @@ configuration:
     nombre: Mariano Valle
   text: Global configuration DEV
 #-----------------------------------------------------------------------------------------------------------------------
+#Path configuration
+server:
+  servlet:
+    context-path: /project
+#-----------------------------------------------------------------------------------------------------------------------
 #Bacis' configuration of microservice:
 spring:
   main:
@@ -31,19 +36,6 @@ spring:
 logging:
   config: server-configuration/src/main/resources/logback.xml
   #config=classpath:/logback-spring.xml
-#-----------------------------------------------------------------------------------------------------------------------
-#Ribbon configuration
-#Se puede habilitar si tenemos muchos microservicios y pocos recursos. Se pueden multiplicar los valores x 3
-#ribbon:
-#  ReadTimeout: '10000'
-#  ConnectTimeout: '3000'
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: '20000'
 #-----------------------------------------------------------------------------------------------------------------------
 #Application config
 microservices:

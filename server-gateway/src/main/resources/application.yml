@@ -22,20 +22,24 @@ resilience4j:
       #Tenemoms una sola configuración, pero se pueden asignas muchas.
       service-item-CB:
         base-config: default
-      service-product-CB:
+#      service-product-CB:
+#        base-config: default
+      core-product-CB:
         base-config: default
-  #Configurar él time-out si es menor o igual que la llamada lenta entra en time-out porque tiene prioridad.
+  #Configurar el time-out si es menor o igual que la llamada lenta entra en time-out porque tiene prioridad.
   timelimiter:
     configs:
       default:
-        timeout-duration: 2s
+        #Por defecto es 1
+        timeout-duration: 3s
     #Pasarla a la instancia items
     instances:
       service-item-CB:
         base-config: default
-      service-product-CB:
+#      service-product-CB:
+#        base-config: default
+      core-product-CB:
         base-config: default
-
 #-----------------------------------------------------------------------------------------------------------------------
 #Bacis' configuration of microservice:
 spring:
@@ -56,7 +60,43 @@ spring:
       routes:
         - id: service-product
           # To allow multiple instances.
-          uri: lb://service-product
+          # to access through the load balancer
+          uri: lb://bus-product
+          # Son reglas del request:
+          predicates:
+            - Path=/api/bus-products/**
+            #\d+: Expresión regular (cualquier dígito)
+            #- Header= token, \d+
+            #Restringe a que el content-type solo sea JSON.
+            #- Header= Content-Type, application/json
+            #Solo acepta métodos POST
+            #- Method= GET, POST
+            #Solo acepta parámetros (url) con clave = color y valor = verde. Si no se pone valor aca, se acepta cualquier valor.
+            #- Query= color, verde
+            #Aceptaría cualquier color
+            #- Query= color
+            #Solo acepta esta cookie
+            #- Cookie= color, azul
+            #Se pueden agregar fechas, por ejemplo un rango.
+          filters:
+            #          - name: CircuitBreaker
+            #            args:
+            #              name: service-product-CB
+            #              statusCodes: 500
+            #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
+            - StripPrefix=2
+            #Para trabajar con CookieGatewayFilterFactory:
+            #- cookies=Hola mi mensaje personalizado, usuario, MarianoValle
+            #- name: cookies
+            #  args:
+            #    message: Hola mi mensaje personalizado
+            #    cookieName: usuario
+            #    cookieValue: MarianoValle
+
+        - id: core-product
+          # To allow multiple instances.
+          # to access through the load balancer
+          uri: lb://core-product
           # Son reglas del request:
           predicates:
             - Path=/api/products/**
@@ -80,17 +120,19 @@ spring:
             #              statusCodes: 500
             #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
             - StripPrefix=2
-            #          #Para trabajar con CookieGatewayFilterFactory:
-            #          - cookies=Hola mi mensaje personalizado, usuario, AndresGuzman
-
+            #Para trabajar con CookieGatewayFilterFactory:
+            #- cookies=Hola mi mensaje personalizado, usuario, MarianoValle
+            #Otra forma de trabajar los filtros
             #- name: cookies
             #  args:
             #    message: Hola mi mensaje personalizado
             #    cookieName: usuario
-            #    cookieValue: AndresGuzman
+            #    cookieValue: MarianoValle
+
 
         - id: service-item
           # To allow multiple instances.
+          # to access through the load balancer
           uri: lb://service-item
           predicates:
             - Path=/api/items/**
@@ -103,6 +145,7 @@ spring:
         #          - AddRequestParameter=name, andres
         - id: server-oauth
           # To allow multiple instances.
+          # to access through the load balancer
           uri: lb://server-oauth
           predicates:
             - Path=/api/security/**
@@ -110,6 +153,7 @@ spring:
             - StripPrefix=2
         - id: service-user
           # To allow multiple instances.
+          # to access through the load balancer
           uri: lb://service-user
           predicates:
             - Path=/api/users/**

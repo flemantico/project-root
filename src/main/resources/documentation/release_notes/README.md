@@ -16,7 +16,6 @@ server-configuration
 server-eureka  
 server-gateway  
 server-oauth  
-server-zuul 
 - Servicios:  
 service-product  
 service-item  
