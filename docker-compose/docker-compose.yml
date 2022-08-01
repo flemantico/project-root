@@ -92,8 +92,8 @@ services:
       - eureka-server
       - user-server
 
-  zuul-server:
-    image: zuul-server:v1
+  gateway-server:
+    image: gateway-server:v1
     ports:
       - "8090:8090"
     restart: always

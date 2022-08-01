@@ -61,9 +61,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Configurar los clientes (aplicaciones frontend)
+     * Configurar los client (aplicaciones frontend)
      * Sirve para autenticar con las credenciales de la aplicación cliente y no solo con el usuario.
-     * Acá se pueden configurar muchos clientes con .and().withClient...
+     * Acá se pueden configurar muchos client con .and().withClient...
      *
      * @param clients ClientDetailsServiceConfigurer
      */

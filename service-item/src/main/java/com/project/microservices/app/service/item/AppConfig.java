@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class AppConfig {
 
-    @Bean("ProductClientRest")
+    @Bean("ProductFeignClient")
     @LoadBalanced
     public RestTemplate registrarRestTemplate() {
         return new RestTemplate();

@@ -2,80 +2,147 @@ package com.project.microservices.app.service.item.service;
 
 import com.project.microservices.library.commons.models.entity.item.Item;
 import com.project.microservices.library.commons.models.entity.product.Product;
-import com.project.microservices.app.service.item.clientes.ProductClientRest;
+import com.project.microservices.app.service.item.client.ProductFeignClient;
 
+import feign.FeignException;
+import feign.codec.DecodeException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-
-//import static com.project.springboot.app.commons.constants.Verbs.*;
-//import static com.project.springboot.app.commons.constants.Verbs.NAME;
-//import static com.project.springboot.app.commons.utils.GlobalsFunctions.*;
 
 /***
  * This is a new way of communication between microservices.
  */
 @Service("ItemServiceFeign")
 public class ItemServiceImpFeign implements IitemService {
-//    static final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpFeign.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpFeign.class);
 
     @Autowired
-    private ProductClientRest productClientRest;
-
-//    @Autowired
-//    private Environment env;
-
-//    private final String OBJECT = "/items";
-//    private final String OBJECT_ALL = OBJECT + ROOT;
-//    private final String OBJECT_ID = OBJECT + ID;
-//    private final String OBJECT_NAME = OBJECT + NAME;
-
-//    HttpStatus httpStatus;
+    private ProductFeignClient productFeignClient;
 
     @Override
-    public List<Item> findAll() {
-        return productClientRest.listar().stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public Optional<Page<Item>> page(Pageable pageable) {
+
+        Page<Product> page = productFeignClient.pages(pageable).get();
+
+        return Optional.of((Page<Item>) page.stream().map(p -> new Item(p, 1)).collect(Collectors.toList()));
+
     }
 
     @Override
-    public Item findById(Long id, Integer quantity) {
-        return new Item(productClientRest.findById(id), quantity);
-    }
+    public Optional<List<Item>> all() {
 
-//    @Override
-//    public ResponseEntity<ResponseClass> findById(Long id, Integer quantity) {
-//        LOGGER.info(GET_BY_ID);
-//        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_ID, getPort());
-//
-//        try {
-//            httpStatus = HttpStatus.OK;
-//            Product product =  (Product) productClientRest.findById(id).getBody().getData().get(0).getObject();
-//            Item item = new Item(product, quantity);
-//            verifyIsFoundEmptyResponse(product, response);
-//        } catch (Exception e) {
-//            httpStatus = HttpStatus.CONFLICT;
-//            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
-//        }
-//
-//
-//        return new ResponseEntity<>(response, httpStatus);
-//    }
 
-    @Override
-    public Product save(Product product) {
-        return productClientRest.crear(product);
+        try {
+            List<Product> list = productFeignClient.all().get();
+
+            return Optional.of(list.stream().map(p -> new Item(p, 1)).collect(Collectors.toList()));
+        } catch (FeignException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw new DecodeException(1, e.getMessage(), null);
+        }
+
+        //List<Product> list = productFeignClient.all().get();
+
+        //return Optional.of(list.stream().map(p -> new Item(p, 1)).collect(Collectors.toList()));
+        //return productFeignClient.all().stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
+
+        //return productFeignClient.all().stream().map(p -> new Item(p, 1)).collect(Collectors.toList()); OK
     }
 
     @Override
-    public Product update(Product product, Long id) {
-        return productClientRest.editar(product, id);
+    @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalle")
+    public Optional<Item> find(Long id, Integer quantity) {
+        return Optional.of(new Item(productFeignClient.find(id).get(), quantity));
+    }
+
+    @Override
+    public Optional<Boolean> exists(Long id) {
+        return productFeignClient.exists(id);
+    }
+
+    @Override
+    public Optional<Item> save(Product product) {
+        return Optional.of(new Item(productFeignClient.save(product).get(),1));
+    }
+
+    @Override
+    public Optional<Item> save(Product product, Long id) {
+        return Optional.of(new Item(productFeignClient.save(product, id).get(),1));
     }
 
     @Override
     public void delete(Long id) {
-        productClientRest.eliminar(id);
+        productFeignClient.delete(id);
     }
 
+    @Override
+    public Optional<Item> findByName(String name, Integer quantity) {
+        return Optional.of(new Item(productFeignClient.findByName(name).get(), quantity));
+    }
+
+    @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalleList")
+    @TimeLimiter(name = "service-item-CB")
+    public CompletableFuture<Optional<Item>> detalleList(Long id, Integer quantity) {
+        //Envolmemos el métod en una llamada futura asincrona para calcular el timpo de espera.
+        return CompletableFuture.supplyAsync(() -> Optional.of(new Item(productFeignClient.find(id).get(), quantity)));
+    }
+
+    /***
+     * Se llama cuando falle el metodo detalle (debe estar en la misma clase)
+     * @param id Long
+     * @param quantity Integer
+     * @param e Throwable
+     * @return Optional.of(item)
+     */
+    @SuppressWarnings("unused")
+    public Optional<Item> fallbackDetalle(Long id, Integer quantity, Throwable e) {
+        //LOGGER.info(e.getCause().getMessage());
+
+
+        Item item = createItrem(id, quantity);
+
+        return Optional.of(item);
+    }
+
+    /***
+     * Se llama cuando falle el metodo detalleList (debe estar en la misma clase)
+     * @param id Long
+     * @param quantity Integer
+     * @param e Throwable
+     * @return CompletableFuture<Optional.of(item)>
+     */
+    @SuppressWarnings("unused")
+    public CompletableFuture<Optional<Item>> fallbackDetalleList(Long id, Integer quantity, Throwable e) {
+        LOGGER.info(e.getMessage());
+
+        Item item = createItrem(id, quantity);
+
+        return CompletableFuture.supplyAsync(() -> Optional.of(item));
+    }
+
+
+    private Item createItrem(Long id, Integer quantity){
+        Item item = new Item();
+        Product product = new Product();
+
+        item.setQuantity(quantity);
+        product.setId(id);
+        product.setName("Producto no encontrado");
+        item.setProduct(product);
+        return item;
+    }
 }

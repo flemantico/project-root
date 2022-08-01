@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "products")
 public class Product implements Serializable {
-    private static final long serialVersionUID = 1285454306356845809L;
+    private static final long serialVersionUID = -4002217729139480347L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,7 @@ public class Product implements Serializable {
     private Double price;
 
     @Column(name = "created_at")
+    //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @Column(name = "expiration_on")
@@ -35,5 +36,4 @@ public class Product implements Serializable {
 
     @Column(name = "status")
     private Status status;
-
 }

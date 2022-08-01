@@ -19,7 +19,7 @@ import java.util.Locale;
 @EnableFeignClients
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@EntityScan({"com.project.microservices.library.commons.models.entity"})
+@EntityScan({"com.project.microservices.library.commons.client.entity"})
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
