@@ -1,6 +1,6 @@
-package com.project.microservices.app.service.user.models.dao;
+package com.project.microservices.app.service.user.model.dao;
 
-import com.project.microservices.library.commons.models.entity.user.User;
+import com.project.microservices.library.commons.model.entity.user.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

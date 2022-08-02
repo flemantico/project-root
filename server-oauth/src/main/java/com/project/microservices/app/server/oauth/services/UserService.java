@@ -2,7 +2,7 @@ package com.project.microservices.app.server.oauth.services;
 
 import brave.Tracer;
 import com.project.microservices.app.server.oauth.client.UserFeignClient;
-import com.project.microservices.library.commons.models.entity.user.User;
+import com.project.microservices.library.commons.model.entity.user.User;
 
 import feign.FeignException;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.project.microservices.library.commons.models.entity.http;
+package com.project.microservices.library.commons.model.entity.http;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;

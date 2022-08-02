@@ -1,4 +1,4 @@
-package com.project.microservices.library.commons.models.entity.user;
+package com.project.microservices.library.commons.model.entity.user;
 
 import lombok.Data;
 

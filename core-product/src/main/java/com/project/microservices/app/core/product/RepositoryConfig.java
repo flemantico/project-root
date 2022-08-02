@@ -1,6 +1,6 @@
 package com.project.microservices.app.core.product;
 
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;

@@ -7,9 +7,9 @@ configuration:
   text: Global configuration DEV
 #-----------------------------------------------------------------------------------------------------------------------
 #Path configuration
-server:
-  servlet:
-    context-path: /project
+#server:
+#  servlet:
+#    context-path: /project
 #-----------------------------------------------------------------------------------------------------------------------
 #Bacis' configuration of microservice:
 spring:

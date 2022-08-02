@@ -1,14 +1,11 @@
 package com.project.microservices.app.core.product.model.dao;
 
-import com.project.microservices.library.commons.models.entity.product.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.project.microservices.library.commons.constants.Verbs.*;

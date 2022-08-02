@@ -1,15 +1,14 @@
 package com.project.microservices.library.commons.utils;
 
 //import Environments;
-import com.project.microservices.library.commons.models.entity.http.ResponseClass;
-import com.project.microservices.library.commons.models.entity.http.ResponseMeta;
+import com.project.microservices.library.commons.model.entity.http.ResponseClass;
+import com.project.microservices.library.commons.model.entity.http.ResponseMeta;
 import com.project.microservices.library.commons.constants.Errors;
-import com.project.microservices.library.commons.models.entity.http.ResponseData;
-import com.project.microservices.library.commons.models.entity.http.ResponseError;
+import com.project.microservices.library.commons.model.entity.http.ResponseData;
+import com.project.microservices.library.commons.model.entity.http.ResponseError;
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;

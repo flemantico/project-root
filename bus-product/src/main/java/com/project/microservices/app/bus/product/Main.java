@@ -10,16 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 //import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
 @EnableEurekaClient
+@EnableFeignClients
 @EnableScheduling
 @SpringBootApplication
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@EntityScan({"com.project.microservices.library.commons.client.entity"})
+@EntityScan({"com.project.microservices.library.commons.model.entity"})
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 

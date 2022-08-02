@@ -1,8 +1,7 @@
-package com.project.microservices.library.commons.models.entity.item;
+package com.project.microservices.library.commons.model.entity.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import lombok.Data;
 
 import java.io.Serializable;

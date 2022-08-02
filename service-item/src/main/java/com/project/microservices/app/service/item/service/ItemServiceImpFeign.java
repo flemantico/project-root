@@ -1,7 +1,7 @@
 package com.project.microservices.app.service.item.service;
 
-import com.project.microservices.library.commons.models.entity.item.Item;
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.item.Item;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import com.project.microservices.app.service.item.client.ProductFeignClient;
 
 import feign.FeignException;
@@ -42,6 +42,7 @@ public class ItemServiceImpFeign implements IitemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<List<Item>> all() {
 
 
@@ -54,48 +55,48 @@ public class ItemServiceImpFeign implements IitemService {
         } catch (RuntimeException e) {
             throw new DecodeException(1, e.getMessage(), null);
         }
-
-        //List<Product> list = productFeignClient.all().get();
-
-        //return Optional.of(list.stream().map(p -> new Item(p, 1)).collect(Collectors.toList()));
-        //return productFeignClient.all().stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
-
-        //return productFeignClient.all().stream().map(p -> new Item(p, 1)).collect(Collectors.toList()); OK
     }
 
     @Override
     @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalle")
+    @Transactional(readOnly = true)
     public Optional<Item> find(Long id, Integer quantity) {
         return Optional.of(new Item(productFeignClient.find(id).get(), quantity));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Boolean> exists(Long id) {
         return productFeignClient.exists(id);
     }
 
     @Override
+    @Transactional
     public Optional<Item> save(Product product) {
         return Optional.of(new Item(productFeignClient.save(product).get(),1));
     }
 
     @Override
+    @Transactional
     public Optional<Item> save(Product product, Long id) {
         return Optional.of(new Item(productFeignClient.save(product, id).get(),1));
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         productFeignClient.delete(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Item> findByName(String name, Integer quantity) {
         return Optional.of(new Item(productFeignClient.findByName(name).get(), quantity));
     }
 
     @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalleList")
     @TimeLimiter(name = "service-item-CB")
+    @Transactional(readOnly = true)
     public CompletableFuture<Optional<Item>> detalleList(Long id, Integer quantity) {
         //Envolmemos el métod en una llamada futura asincrona para calcular el timpo de espera.
         return CompletableFuture.supplyAsync(() -> Optional.of(new Item(productFeignClient.find(id).get(), quantity)));

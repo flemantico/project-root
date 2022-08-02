@@ -1,6 +1,6 @@
 package com.project.microservices.app.server.oauth.client;
 
-import com.project.microservices.library.commons.models.entity.user.User;
+import com.project.microservices.library.commons.model.entity.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
