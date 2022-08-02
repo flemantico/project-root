@@ -1,9 +1,9 @@
 package com.project.microservices.app.service.item.controller;
 
 import com.project.microservices.library.commons.constants.Errors;
-import com.project.microservices.library.commons.models.entity.http.ResponseClass;
-import com.project.microservices.library.commons.models.entity.item.Item;
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.http.ResponseClass;
+import com.project.microservices.library.commons.model.entity.item.Item;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import com.project.microservices.app.service.item.service.IitemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

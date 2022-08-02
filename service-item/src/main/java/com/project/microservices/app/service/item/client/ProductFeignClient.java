@@ -1,6 +1,6 @@
 package com.project.microservices.app.service.item.client;
 
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

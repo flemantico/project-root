@@ -17,7 +17,7 @@ import java.util.Locale;
 @EnableEurekaClient
 @SpringBootApplication
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@EntityScan({"com.project.microservices.library.commons.client.entity"})
+@EntityScan({"com.project.microservices.library.commons.model.entity"})
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 

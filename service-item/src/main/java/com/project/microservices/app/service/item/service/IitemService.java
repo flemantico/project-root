@@ -1,7 +1,7 @@
 package com.project.microservices.app.service.item.service;
 
-import com.project.microservices.library.commons.models.entity.item.Item;
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.item.Item;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

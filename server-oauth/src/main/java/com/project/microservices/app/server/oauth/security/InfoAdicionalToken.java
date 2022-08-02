@@ -1,6 +1,6 @@
 package com.project.microservices.app.server.oauth.security;
 
-import com.project.microservices.library.commons.models.entity.user.User;
+import com.project.microservices.library.commons.model.entity.user.User;
 import com.project.microservices.app.server.oauth.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

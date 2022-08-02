@@ -1,4 +1,4 @@
-package com.project.microservices.library.commons.models.entity.product;
+package com.project.microservices.library.commons.model.entity.product;
 
 import com.project.microservices.library.commons.constants.Status;
 import lombok.Data;

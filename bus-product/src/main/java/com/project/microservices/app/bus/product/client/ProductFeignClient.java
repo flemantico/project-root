@@ -1,7 +1,7 @@
 package com.project.microservices.app.bus.product.client;
 
 import com.project.microservices.library.commons.constants.Status;
-import com.project.microservices.library.commons.models.entity.product.Product;
+import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-//import static com.project.microservices.library.commons.constants.Entities.*;
-import static com.project.microservices.library.commons.constants.Microservices.*;
 
 /**
  * Consume un servicio de forma remota mediante una interfaz. Lo identifica mediante el nombre de application.properties.
@@ -24,11 +21,11 @@ import static com.project.microservices.library.commons.constants.Microservices.
 //@RequestMapping(PRODUCT_PATH)
 public interface ProductFeignClient {
 
-//    @GetMapping(path = "/products/pages")
-//    Optional<Page<Product>> pages(Pageable pageable);
-//
-//    @GetMapping(path = "/products")
-//    Optional<List<Product>> all();
+    @GetMapping(path = "/products/pages")
+    Optional<Page<Product>> pages(Pageable pageable);
+
+    @GetMapping(path = "/products")
+    Optional<List<Product>> all();
 
     @GetMapping(path = "/products/{id}")
     Optional<Product> find(@PathVariable Long id);

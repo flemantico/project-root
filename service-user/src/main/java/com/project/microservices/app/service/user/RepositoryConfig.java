@@ -1,7 +1,7 @@
 package com.project.microservices.app.service.user;
 
-import com.project.microservices.library.commons.models.entity.user.Role;
-import com.project.microservices.library.commons.models.entity.user.User;
+import com.project.microservices.library.commons.model.entity.user.Role;
+import com.project.microservices.library.commons.model.entity.user.User;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
