@@ -11,5 +11,5 @@ include 'core-product'
 include 'server-gateway'
 include 'service-user'
 include 'bus-product'
-include 'service-item'
+include 'bus-item'
 

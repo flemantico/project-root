@@ -1,4 +1,4 @@
-package com.project.microservices.app.service.item;
+package com.project.microservices.app.bus.item;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.setProperty("log_file_name", "service-item");
+        System.setProperty("log_file_name", "bus-item");
         SpringApplication.run(Main.class, args);
 
         object.getProperties();

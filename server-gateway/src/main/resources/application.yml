@@ -20,7 +20,7 @@ resilience4j:
         #slow-call-duration-threshold: 2s
     instances:
       #Tenemoms una sola configuración, pero se pueden asignas muchas.
-      service-item-CB:
+      bus-item-CB:
         base-config: default
       bus-product-CB:
         base-config: default
@@ -34,7 +34,7 @@ resilience4j:
         timeout-duration: 3s
     #Pasarla a la instancia items
     instances:
-      service-item-CB:
+      bus-item-CB:
         base-config: default
       bus-product-CB:
         base-config: default
@@ -83,7 +83,7 @@ spring:
             #            args:
             #              name: bus-product-CB
             #              statusCodes: 500
-            #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
+            #              fallbackUri: fordward:/api/bus-items/ver/9/cantidad/5
             - StripPrefix=2
             #Para trabajar con CookieGatewayFilterFactory:
             #- cookies=Hola mi mensaje personalizado, usuario, MarianoValle
@@ -99,7 +99,7 @@ spring:
           uri: lb://core-product
           # Son reglas del request:
           predicates:
-            - Path=/api/products/**
+            - Path=/api/core-products/**
             #\d+: Expresión regular (cualquier dígito)
             #- Header= token, \d+
             #Restringe a que el content-type solo sea JSON.
@@ -118,7 +118,7 @@ spring:
             #            args:
             #              name: bus-product-CB
             #              statusCodes: 500
-            #              fallbackUri: fordward:/api/items/ver/9/cantidad/5
+            #              fallbackUri: fordward:/api/bus-items/ver/9/cantidad/5
             - StripPrefix=2
             #Para trabajar con CookieGatewayFilterFactory:
             #- cookies=Hola mi mensaje personalizado, usuario, MarianoValle
@@ -130,12 +130,12 @@ spring:
             #    cookieValue: MarianoValle
 
 
-        - id: service-item
+        - id: bus-item
           # To allow multiple instances.
           # to access through the load balancer
-          uri: lb://service-item
+          uri: lb://bus-item
           predicates:
-            - Path=/api/items/**
+            - Path=/api/bus-items/**
           filters:
             #          #Add agrega, Set Actualiza
             - StripPrefix=2

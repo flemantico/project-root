@@ -23,10 +23,11 @@ Se deben configurar en todos los microservicios.
 **[server-configuration](server-configuration.md)**  
 **[server-eureka](server-eureka.md)**  
 **[server-oauth](server-oauth.md)**  
-**[service-item](server-gateway.md)**  
+**[server-gateway](server-gateway)**  
 **[service-user](service-user.md)**  
-**[service-product](service-product.md)**  
-**[service-item](service-item.md)**  
+**[core-product](core-product.md)**  
+**[bus-product](bus-product.md)**  
+**[bus-item](bus-item.md)**  
 
 - ### Logs
 #### APPLICATION_NAME:
@@ -36,8 +37,8 @@ Esta variable se utiliza en los logs, para identificar la aplicación.
 **server-oauth** - `APPLICATION_NAME=server-oauth`
 **server-gateway** - `APPLICATION_NAME=server-gateway`
 **service-user** - `APPLICATION_NAME=service-user`
-**service-product** - `APPLICATION_NAME=service-product`
-**service-item** - `APPLICATION_NAME=service-item`
+**bus-product** - `APPLICATION_NAME=bus-product`
+**bus-item** - `APPLICATION_NAME=bus-item`
 
 - ### Database
 #### DB_USER_NAME:
@@ -50,7 +51,7 @@ Esta variable representa la contraseña de la base de datos.
 
 Se debe setear en todos los microservicios que tengan acceso a datos, por ejemplo:  
 service-user  
-service-product  
+core-product  
 
 ***
 #### [content](#content)

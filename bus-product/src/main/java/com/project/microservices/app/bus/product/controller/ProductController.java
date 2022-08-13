@@ -62,7 +62,8 @@ public class ProductController {
             @RequestParam (required = false, defaultValue = "id") String column,
             @RequestParam (required = false, defaultValue = "true") boolean isAscending, HttpServletRequest httpServletRequest){
         LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_NAME, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_NAME, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Page<Product> pages;
@@ -72,7 +73,7 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -82,7 +83,8 @@ public class ProductController {
     @GetMapping(value = ALL_OBJECTS)
     public ResponseEntity<ResponseClass> all(HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, ALL_OBJECTS, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             List<Product> products = productService.all().orElse(null);
@@ -91,17 +93,18 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    //@GetMapping(value = OBJECT_BY_ID)
+    @GetMapping(value = OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> get(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_BY_ID);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Product product = productService.find(id).orElse(null);
@@ -110,31 +113,18 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping(value = OBJECT_BY_ID)
-    public Product get2(@PathVariable Long id, HttpServletRequest httpServletRequest) {
-        LOGGER.info(GET_BY_ID);
-        Product product = null;
-
-        try {
-            product = productService.find(id).orElse(null);
-        } catch (Exception e) {
-            LOGGER.info("Error: {}", Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()));
-        }
-
-        return product;
-    }
-
-    @GetMapping(value = OBJECT_BY_NAME)
+    @GetMapping(value = OBJECT_FIND_BY_NAME)
     public ResponseEntity<ResponseClass> findByName(@PathVariable String name, HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_BY_NAME);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_NAME, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_FIND_BY_NAME, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Product product = productService.findByName(name).orElse(null);
@@ -143,7 +133,7 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -153,7 +143,8 @@ public class ProductController {
     @PostMapping(ALL_OBJECTS)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, HttpServletRequest httpServletRequest) {
         LOGGER.info(CREATE);
-        ResponseClass response = new ResponseClass(HttpMethod.POST, ALL_OBJECTS, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Product productReturn = productService.save(product).orElse(null);
@@ -162,7 +153,7 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -172,11 +163,12 @@ public class ProductController {
     @PutMapping(OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, @PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(EDIT);
-        ResponseClass response = new ResponseClass(HttpMethod.PUT, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Product productDb = productService.find(id).orElse(null);
-            if (HttpStatus.FOUND.equals(verifyIsFoundEmptyResponse(productDb, response))){
+            if (HttpStatus.CREATED.equals(verifyIsFoundEmptyResponse(productDb, response))){
                 String[] noTargetMethod = {"createdAt"};
                 copyAvailableFields(product, productDb, noTargetMethod);
                 productService.save(productDb);
@@ -185,7 +177,7 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -195,7 +187,8 @@ public class ProductController {
     @DeleteMapping(OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> delete(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(DELETE);
-        ResponseClass response = new ResponseClass(HttpMethod.DELETE, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Product product = productService.find(id).orElse(null);
@@ -206,7 +199,7 @@ public class ProductController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));

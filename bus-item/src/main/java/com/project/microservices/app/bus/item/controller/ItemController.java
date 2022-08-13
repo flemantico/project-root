@@ -1,10 +1,10 @@
-package com.project.microservices.app.service.item.controller;
+package com.project.microservices.app.bus.item.controller;
 
 import com.project.microservices.library.commons.constants.Errors;
 import com.project.microservices.library.commons.model.entity.http.ResponseClass;
 import com.project.microservices.library.commons.model.entity.item.Item;
 import com.project.microservices.library.commons.model.entity.product.Product;
-import com.project.microservices.app.service.item.service.IitemService;
+import com.project.microservices.app.bus.item.service.IitemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,8 @@ public class ItemController {
             @RequestParam (required = false, defaultValue = "id") String column,
             @RequestParam (required = false, defaultValue = "true") boolean isAscending, HttpServletRequest httpServletRequest){
         LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_NAME, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_NAME, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Page<Item> pages;
@@ -69,7 +70,7 @@ public class ItemController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -79,7 +80,8 @@ public class ItemController {
     @GetMapping(value = ALL_OBJECTS)
     public ResponseEntity<ResponseClass> all(HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, ALL_OBJECTS, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             List<Item> items = iItemService.all().orElse(null);
@@ -88,7 +90,7 @@ public class ItemController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -99,7 +101,8 @@ public class ItemController {
     @GetMapping("/find/{id}/quantity/{quantity}")
     public ResponseEntity<ResponseClass> get(@PathVariable Long id, @PathVariable Integer quantity, HttpServletRequest httpServletRequest) {
         LOGGER.info(GET_BY_ID);
-        ResponseClass response = new ResponseClass(HttpMethod.GET, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Item item = iItemService.find(id, quantity).orElse(null);
@@ -108,7 +111,7 @@ public class ItemController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -118,7 +121,8 @@ public class ItemController {
     @PostMapping(ALL_OBJECTS)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, HttpServletRequest httpServletRequest) {
         LOGGER.info(CREATE);
-        ResponseClass response = new ResponseClass(HttpMethod.POST, ALL_OBJECTS, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Item item = iItemService.save(product).orElse(null);
@@ -127,7 +131,7 @@ public class ItemController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -137,7 +141,8 @@ public class ItemController {
     @PutMapping(OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, @PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(EDIT);
-        ResponseClass response = new ResponseClass(HttpMethod.PUT, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Item item = iItemService.find(id, 1).orElse(null);
@@ -150,7 +155,7 @@ public class ItemController {
              httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -160,7 +165,8 @@ public class ItemController {
     @DeleteMapping(OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> delete(@PathVariable Long id, HttpServletRequest httpServletRequest) {
         LOGGER.info(DELETE);
-        ResponseClass response = new ResponseClass(HttpMethod.DELETE, OBJECT_BY_ID, getPort(env));
+        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        httpStatus = HttpStatus.OK;
 
         try {
             Item item = iItemService.find(id, 1).orElse(null);
@@ -171,7 +177,7 @@ public class ItemController {
             httpStatus = HttpStatus.CONFLICT;
             LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
-            setResponse(response, httpServletRequest);
+            //setResponse(response, httpServletRequest);
         }
 
         LOGGER.info("Response: {}", sanitize(response));
@@ -181,6 +187,7 @@ public class ItemController {
     @GetMapping("obtener-config")
     public ResponseEntity<?> obtenerConfig(@Value("${server.port}") String puerto) {
         LOGGER.info(texto);
+        httpStatus = HttpStatus.OK;
 
         Map<String, String> json = new HashMap<>();
         json.put("texto", texto);
@@ -192,7 +199,7 @@ public class ItemController {
 
         }
         //return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        return new ResponseEntity<>(json, httpStatus);
     }
 }
 

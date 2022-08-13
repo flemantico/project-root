@@ -1,4 +1,4 @@
-package com.project.microservices.app.service.item.client;
+package com.project.microservices.app.bus.item.client;
 
 import com.project.microservices.library.commons.model.entity.product.Product;
 import org.springframework.cloud.openfeign.FeignClient;
