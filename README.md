@@ -37,8 +37,8 @@ Este repositorio contiene el código fuente de los microservicios e información
 **server-zipkin:**  
 - **servicios:**  
 **service-user:** Servicio de usuarios.  
-**service-product:** Servicio de productos.  
-**service-item:**  Servicio de items.   
+**core-product:** Servicio de productos.  
+**bus-item:**  Servicio de items.   
 **microservices-configuration:** Contiene los archivos de configuración.
 
 ## Schema
