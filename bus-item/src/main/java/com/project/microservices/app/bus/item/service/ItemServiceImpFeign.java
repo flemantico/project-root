@@ -1,8 +1,8 @@
-package com.project.microservices.app.service.item.service;
+package com.project.microservices.app.bus.item.service;
 
+import com.project.microservices.app.bus.item.client.ProductFeignClient;
 import com.project.microservices.library.commons.model.entity.item.Item;
 import com.project.microservices.library.commons.model.entity.product.Product;
-import com.project.microservices.app.service.item.client.ProductFeignClient;
 
 import feign.FeignException;
 import feign.codec.DecodeException;
@@ -58,7 +58,7 @@ public class ItemServiceImpFeign implements IitemService {
     }
 
     @Override
-    @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalle")
+    @CircuitBreaker(name = "bus-item-CB", fallbackMethod = "fallbackDetalle")
     @Transactional(readOnly = true)
     public Optional<Item> find(Long id, Integer quantity) {
         return Optional.of(new Item(productFeignClient.find(id).get(), quantity));
@@ -94,8 +94,8 @@ public class ItemServiceImpFeign implements IitemService {
         return Optional.of(new Item(productFeignClient.findByName(name).get(), quantity));
     }
 
-    @CircuitBreaker(name = "service-item-CB", fallbackMethod = "fallbackDetalleList")
-    @TimeLimiter(name = "service-item-CB")
+    @CircuitBreaker(name = "bus-item-CB", fallbackMethod = "fallbackDetalleList")
+    @TimeLimiter(name = "bus-item-CB")
     @Transactional(readOnly = true)
     public CompletableFuture<Optional<Item>> detalleList(Long id, Integer quantity) {
         //Envolmemos el métod en una llamada futura asincrona para calcular el timpo de espera.

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,7 @@ public class ResponseClass extends Response {
     @JsonProperty("errors")
     private List<ResponseError> errors = null;
 
-    public ResponseClass(HttpMethod method, String operation, Integer port) {
+    public ResponseClass(HttpServletRequest method, String operation, Integer port) {
         this.meta = addMeta(method, operation, port);
     }
 
@@ -116,36 +117,42 @@ public class ResponseClass extends Response {
         return sb.toString();
     }
 
-    private ResponseMeta addMeta(HttpMethod method, String operation, Integer port) {
+    private ResponseMeta addMeta(HttpServletRequest method, String operation, Integer port) {
         ResponseMeta meta = new ResponseMeta();
-        switch (method) {
-            case GET:
-                meta.setMethod("GET");
-                break;
-            case HEAD:
-                meta.setMethod("HEAD");
-                break;
-            case POST:
-                meta.setMethod("POST");
-                break;
-            case PUT:
-                meta.setMethod("PUT");
-                break;
-            case PATCH:
-                meta.setMethod("PATCH");
-                break;
-            case DELETE:
-                meta.setMethod("DELETE");
-                break;
-            case OPTIONS:
-                meta.setMethod("OPTIONS");
-                break;
-            case TRACE:
-                meta.setMethod("TRACE");
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + method);
+
+        if(method.getMethod().isBlank() || method.getMethod().isEmpty()){
+            throw new IllegalStateException("Unexpected value: " + method);
         }
+
+        meta.setMethod(method.getMethod());
+//        switch (method) {
+//            case GET:
+//                meta.setMethod("GET");
+//                break;
+//            case HEAD:
+//                meta.setMethod("HEAD");
+//                break;
+//            case POST:
+//                meta.setMethod("POST");
+//                break;
+//            case PUT:
+//                meta.setMethod("PUT");
+//                break;
+//            case PATCH:
+//                meta.setMethod("PATCH");
+//                break;
+//            case DELETE:
+//                meta.setMethod("DELETE");
+//                break;
+//            case OPTIONS:
+//                meta.setMethod("OPTIONS");
+//                break;
+//            case TRACE:
+//                meta.setMethod("TRACE");
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + method);
+//        }
         meta.setOperation("/api" + operation);
         meta.setPort(port);
         return meta;

@@ -1,4 +1,4 @@
-package com.project.microservices.app.service.item;
+package com.project.microservices.app.bus.item;
 
 //import java.time.Duration;
 

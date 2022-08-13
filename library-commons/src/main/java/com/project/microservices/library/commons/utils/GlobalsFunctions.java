@@ -78,19 +78,21 @@ public final class GlobalsFunctions {
         return meta;
     }*/
 
-    /**
-     * Set response.
-     * @param response ResponseClass
-     * @param httpServletRequest HttpServletRequest
-     */
-    public static void setResponse(ResponseClass response, HttpServletRequest httpServletRequest){
-        ResponseMeta meta = new ResponseMeta();
-        meta.setMethod(httpServletRequest.getMethod());
-        meta.setOperation(httpServletRequest.getRequestURI());
-        meta.setPort(response.getMeta().getPort());
-        //meta.setUser(httpServletRequest.gecotUserPrincipal().getName());
-        response.setMeta(meta);
-    }
+// Ya lo hace al crear el response
+//    /**
+//     * Set response.
+//     * @param response ResponseClass
+//     * @param httpServletRequest HttpServletRequest
+//     */
+//
+//    public static void setResponse(ResponseClass response, HttpServletRequest httpServletRequest){
+//        ResponseMeta meta = new ResponseMeta();
+//        meta.setMethod(httpServletRequest.getMethod());
+//        meta.setOperation(httpServletRequest.getRequestURI());
+//        meta.setPort(response.getMeta().getPort());
+//        //meta.setUser(httpServletRequest.gecotUserPrincipal().getName());
+//        response.setMeta(meta);
+//    }
 
     public static ResponseError createError(String code, String description, ResponseClass response) {
         ResponseError error = new ResponseError();

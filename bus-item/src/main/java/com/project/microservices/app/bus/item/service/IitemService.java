@@ -1,4 +1,4 @@
-package com.project.microservices.app.service.item.service;
+package com.project.microservices.app.bus.item.service;
 
 import com.project.microservices.library.commons.model.entity.item.Item;
 import com.project.microservices.library.commons.model.entity.product.Product;

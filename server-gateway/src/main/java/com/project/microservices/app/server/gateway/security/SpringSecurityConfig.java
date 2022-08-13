@@ -24,13 +24,18 @@ public class SpringSecurityConfig {
                 //api/users: path de gateway.
                 //users: path de @RepositoryRestResource.
 //                .pathMatchers(HttpMethod.GET, "/api/users/users/**",
-//                        "/api/products/products/**",
-//                        "/api/items/**",
-//                        "/api/items/{id}/quantity/{cantidad}",
-//                        "/api/products/products/{id}"
+//                        "/api/core-products/products/**",
+//                        "/api/core-products/products/{id}"
+//                        "/api/bus-products/products/**",
+//                        "/api/bus-products/products/{id}"
+//                        "/api/bus-items/**",
+//                        "/api/bus-items/{id}/quantity/{cantidad}",
 //                ).permitAll()
 //                .pathMatchers(HttpMethod.GET, "/api/users/users/{id}").hasAnyRole("ADMIN", "USER")
-                .pathMatchers("/api/users/users/**", "/api/products/products/**", "/api/items/**").hasRole("ADMIN")
+                .pathMatchers("/api/users/users/**",
+                        "/api/core-products/products/**",
+                        "/api/bus-products/products/**",
+                        "/api/bus-items/**").hasRole("ADMIN")
                 .anyExchange().authenticated()
                 .and()
                 //Agregar el filtro de autenticacion

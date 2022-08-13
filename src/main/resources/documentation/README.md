@@ -39,7 +39,7 @@ Para ejecutar un módulo Spring Boot, ejecute el comando: `gradle bootRun` en el
 #### Ejecutar dump
 Para crear la base de datos debe ejecutar el dum de cada entidad en una base de datos MySQL:  
 `"/service-user/target/classes/import.sql"`  
-`"/service-product/target/classes/import.sql"`
+`"/bus-product/target/classes/import.sql"`
 
 El user y password de la base de datos se debe definir en el IDE correspondiente, setear las siguientes variables:  
 `DB_USER_NAME`,

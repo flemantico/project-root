@@ -29,11 +29,17 @@ public class Verbs {
     private static final String PAGES_PATH = "pages";
     private static final String ID_PATH = "{id}";
     private static final String NAME_PATH = "name/{name}";
+    /*
+    find by name end point path
+    */
+    public static final String FIND_BY_NAME_EPP = "find-by-name/{name}";
 
     public static final String ALL_OBJECTS = ROOT_PATH;
     public static final String ALL_OBJECTS_PAGES = ROOT_PATH + PAGES_PATH;
     public static final String OBJECT_BY_ID = ROOT_PATH + ID_PATH;
     public static final String OBJECT_BY_NAME = ROOT_PATH + NAME_PATH;
+
+    public static final String OBJECT_FIND_BY_NAME = ROOT_PATH + FIND_BY_NAME_EPP;
 
     /**
      * Project Verbs end points path
@@ -45,11 +51,4 @@ public class Verbs {
     public static final String EXISTS_EPP = "exists";
     public static final String SAVE_EPP = "save";
     public static final String DELETE_EPP = "delete";
-
-    /*
-    find by name end point path
-     */
-    public static final String FIND_BY_NAME_EPP = "find-by-name";
-
-
 }

@@ -16,9 +16,10 @@ server-configuration
 server-eureka  
 server-gateway  
 server-oauth  
-- Servicios:  
-service-product  
-service-item  
+- Servicios:
+core-product
+bus-product  
+bus-item  
 service-user  
 
 **Cambios:** Versión inicial de los microservicios.  

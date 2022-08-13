@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group 'com.project.microservices.app.service.item'
+group 'com.project.microservices.app.bus.item'
 version '1.0-SNAPSHOT'
 
 repositories {
