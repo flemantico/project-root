@@ -45,7 +45,7 @@ microservices:
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Para solucionar los problemas con los nombres de hot
-eureka:
-  instance:
-    prefer-ip-address: 'true'
+#eureka:
+#  instance:
+#    prefer-ip-address: 'true'
 #-----------------------------------------------------------------------------------------------------------------------
