@@ -21,17 +21,14 @@ import java.util.Optional;
 //@RequestMapping(PRODUCT_PATH)
 public interface ProductFeignClient {
 
-    @GetMapping(path = "/products/pages")
-    Optional<Page<Product>> pages(Pageable pageable);
-
     @GetMapping(path = "/products")
-    Optional<List<Product>> all();
+    Optional<Page<Product>> pages(Pageable pageable);
 
     @GetMapping(path = "/products/{id}")
     Optional<Product> find(@PathVariable Long id);
 
     @GetMapping(path = "/products/{id}")
-    Optional<Boolean> exists(@PathVariable  Long id);
+    boolean existsById(@PathVariable  Long id);
 
     @PostMapping(path = "/products")
     Optional<Product> save(@RequestBody Product product);

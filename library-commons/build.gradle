@@ -1,3 +1,15 @@
+//https://openapi-generator.tech/docs/plugins/
+//https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo1.maven.org/maven2" }
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:6.0.1"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.7.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -43,7 +55,8 @@ dependencies {
     //https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
     //https://mvnrepository.com/artifact/org.apache.commons/commons-text
-    implementation 'org.apache.commons:commons-text:1.9'
+    //implementation 'org.apache.commons:commons-text:1.9'
+
 }
 
 dependencyManagement {
@@ -54,4 +67,24 @@ dependencyManagement {
 
 test {
     useJUnitPlatform()
+}
+
+apply plugin: 'org.openapi.generator'
+
+openApiGenerate {
+    generatorName = "java"
+    generateApiTests = false
+    generateModelTests = false
+    library = "jersey2"
+//    generateApis = false
+//    generateSupportingFiles = false
+
+    inputSpec = "$rootDir/library-commons/src/main/resources/api/library-commons.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "com.project.microservices.library.commons.api"
+    invokerPackage = "com.project.microservices.library.commons.invoker"
+    modelPackage = "com.project.microservices.library.commons.model"
+    configOptions = [
+            dateLibrary: "java11"
+    ]
 }

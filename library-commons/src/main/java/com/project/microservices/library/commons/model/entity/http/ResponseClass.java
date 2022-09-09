@@ -125,34 +125,7 @@ public class ResponseClass extends Response {
         }
 
         meta.setMethod(method.getMethod());
-//        switch (method) {
-//            case GET:
-//                meta.setMethod("GET");
-//                break;
-//            case HEAD:
-//                meta.setMethod("HEAD");
-//                break;
-//            case POST:
-//                meta.setMethod("POST");
-//                break;
-//            case PUT:
-//                meta.setMethod("PUT");
-//                break;
-//            case PATCH:
-//                meta.setMethod("PATCH");
-//                break;
-//            case DELETE:
-//                meta.setMethod("DELETE");
-//                break;
-//            case OPTIONS:
-//                meta.setMethod("OPTIONS");
-//                break;
-//            case TRACE:
-//                meta.setMethod("TRACE");
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + method);
-//        }
+
         meta.setOperation("/api" + operation);
         meta.setPort(port);
         return meta;

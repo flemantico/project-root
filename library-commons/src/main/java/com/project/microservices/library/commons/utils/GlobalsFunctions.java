@@ -2,28 +2,21 @@ package com.project.microservices.library.commons.utils;
 
 //import Environments;
 import com.project.microservices.library.commons.model.entity.http.ResponseClass;
-import com.project.microservices.library.commons.model.entity.http.ResponseMeta;
 import com.project.microservices.library.commons.constants.Errors;
 import com.project.microservices.library.commons.model.entity.http.ResponseData;
 import com.project.microservices.library.commons.model.entity.http.ResponseError;
-import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
 import static com.project.microservices.library.commons.constants.Messages.*;
-
-//import org.springframework.http.HttpMethod;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
 
 public final class GlobalsFunctions {
     static final Logger LOGGER = LoggerFactory.getLogger(GlobalsFunctions.class);
@@ -40,61 +33,7 @@ public final class GlobalsFunctions {
         }
     }
 
-    //@Value(Environments.MESSAGE_LOG)
-    //private static String message_log;
-
- /*   public static ResponseMeta addMeta(HttpMethod method, String operation) {
-        ResponseMeta meta = new ResponseMeta();
-        switch (method){
-            case GET:
-                meta.setMethod("GET");
-                break;
-            case HEAD:
-                meta.setMethod("HEAD");
-                break;
-            case POST:
-                meta.setMethod("POST");
-                break;
-            case PUT:
-                meta.setMethod("PUT");
-                break;
-            case PATCH:
-                meta.setMethod("PATCH");
-                break;
-            case DELETE:
-                meta.setMethod("DELETE");
-                break;
-            case OPTIONS:
-                meta.setMethod("OPTIONS");
-                break;
-            case TRACE:
-                meta.setMethod("TRACE");
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + method);
-        }
-
-        meta.setOperation("/api" + operation);
-        return meta;
-    }*/
-
-// Ya lo hace al crear el response
-//    /**
-//     * Set response.
-//     * @param response ResponseClass
-//     * @param httpServletRequest HttpServletRequest
-//     */
-//
-//    public static void setResponse(ResponseClass response, HttpServletRequest httpServletRequest){
-//        ResponseMeta meta = new ResponseMeta();
-//        meta.setMethod(httpServletRequest.getMethod());
-//        meta.setOperation(httpServletRequest.getRequestURI());
-//        meta.setPort(response.getMeta().getPort());
-//        //meta.setUser(httpServletRequest.gecotUserPrincipal().getName());
-//        response.setMeta(meta);
-//    }
-
-    public static ResponseError createError(String code, String description, ResponseClass response) {
+     public static ResponseError createError(String code, String description, ResponseClass response) {
         ResponseError error = new ResponseError();
         error.setCode(code);
         error.setDetail(String.format("Error: %s", description));
@@ -118,10 +57,8 @@ public final class GlobalsFunctions {
      */
     public static HttpStatus verifyIsFoundEmptyResponse(Object object, ResponseClass response) {
 
-        final String get = "GET";
-
         if (isEmpty(object)) {
-            LOGGER.info("Error: {}", createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
+            LOGGER.info(MESSAGE_ERROR, createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
             return HttpStatus.NOT_FOUND;
         } else {
             switch (HttpMethod.valueOf(response.getMeta().getMethod())){
@@ -146,15 +83,15 @@ public final class GlobalsFunctions {
 
     public static boolean verifyIsFoundEmpty(Object object, ResponseClass response) {
         if (isEmpty(object)) {
-            LOGGER.info("Error: {}", createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
+            LOGGER.info(MESSAGE_ERROR, createError(Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL, response));
             return true;
         }
         return false;
     }
 
-    public static HttpStatus verifyIsFoundEmpty(Object object) throws Exception {
+    public static HttpStatus verifyIsFoundEmpty(Object object) {
         if (isEmpty(object)) {
-            LOGGER.info("Error: {}", Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL);
+            LOGGER.info(MESSAGE_ERROR, Errors.NOT_FOUND_CODE, Errors.NOT_FOUND_DETAIL);
             return HttpStatus.NOT_FOUND;
         }else{
             return HttpStatus.OK;
@@ -222,25 +159,6 @@ public final class GlobalsFunctions {
             }
         }
     }
-
-    /**
-     * Sanitize
-     * @param uncleanString String
-     * @return String
-     */
-    public static String sanitize(String uncleanString) {
-        return StringEscapeUtils.escapeJava(uncleanString);
-    }
-
-    /**
-     * Sanitize
-     * @param uncleanObject Object
-     * @return String
-     */
-    public static String sanitize(Object uncleanObject) {
-        return StringEscapeUtils.escapeJava(uncleanObject.toString());
-    }
-
 
     /***
      * We centralize the log to be able to personalize and sanitize it.
