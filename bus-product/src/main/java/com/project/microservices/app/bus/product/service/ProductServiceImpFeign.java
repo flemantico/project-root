@@ -3,8 +3,6 @@ package com.project.microservices.app.bus.product.service;
 import com.project.microservices.app.bus.product.client.ProductFeignClient;
 import com.project.microservices.library.commons.constants.Status;
 import com.project.microservices.library.commons.model.entity.product.Product;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +17,6 @@ import java.util.Optional;
  */
 @Service("ProductServiceImpFeign")
 public class ProductServiceImpFeign implements ProductService {
-    static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpFeign.class);
 
     @Autowired
     private ProductFeignClient productFeignClient;
@@ -32,21 +29,15 @@ public class ProductServiceImpFeign implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<Product>> all() {
-        return productFeignClient.all();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public Optional<Product> find(Long id) {
         return productFeignClient.find(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Boolean> exists(Long id) {
-        return productFeignClient.exists(id);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public boolean exists(Long id) {
+//        return productFeignClient.exists(id);
+//    }
 
     @Override
     @Transactional
@@ -63,6 +54,12 @@ public class ProductServiceImpFeign implements ProductService {
     @Transactional
     public void delete(Long id) {
         productFeignClient.delete(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsById(Long id) {
+        return productFeignClient.existsById(id);
     }
 
     @Override

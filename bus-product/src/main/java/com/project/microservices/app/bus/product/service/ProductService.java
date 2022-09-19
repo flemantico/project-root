@@ -12,11 +12,9 @@ public interface ProductService {
 
     Optional<Page<Product>> page(Pageable pageable);
 
-    Optional<List<Product>> all();
-
     Optional<Product> find(Long id);
 
-    Optional<Boolean> exists(Long id);
+    boolean existsById(Long id);
 
     Optional<Product> save(Product product);
 

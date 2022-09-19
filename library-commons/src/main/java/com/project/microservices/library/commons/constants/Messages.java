@@ -18,4 +18,8 @@ public class Messages {
 
     public static final String FIND_OBJECT_CODE = "FIND_OBJECT";
 
+
+    public static final String MESSAGE_ERROR = "Error: {}";
+    public static final String MESSAGE_RESPONSE = "Response: {}";
+
 }

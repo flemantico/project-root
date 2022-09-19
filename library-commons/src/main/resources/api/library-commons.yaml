@@ -1,0 +1,85 @@
+openapi: 3.0.2
+info:
+  title: microservicios-service-user
+  version: 1.0.0
+  description: Library Service User
+paths:
+  /users:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+          description: Response
+components:
+  schemas:
+    user:
+      title: Root Type for user
+      description: ''
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        user_name:
+          type: string
+        password:
+          type: string
+        enabled:
+          type: boolean
+        name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        telephone:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_roles'
+        intentos:
+          format: int32
+          type: integer
+      example:
+        id: 0
+        user_name: ''
+        password: ''
+        enabled: false
+        name: ''
+        last_name: ''
+        email: ''
+        telephone: ''
+        roles:
+          -
+            id: 0
+            name: ''
+        intentos: 0
+    user_roles:
+      title: Root Type for user_roles
+      description: ''
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          type: string
+      example:
+        id: 0
+        name: ''
+    response:
+      title: Root Type for response
+      description: ''
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+      example:
+        name: ''
+        status: ''

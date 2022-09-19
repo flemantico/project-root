@@ -1,6 +1,6 @@
 //package com.project.microservices.app.server.gateway.filters;
 //
-//import org.slf4j.Logger;
+//import org.slf4j.LoggerUtils;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 //import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -14,7 +14,7 @@
 //
 ////@Component
 //public class EjemploGlobalFilter implements GlobalFilter, Ordered {
-//    private static final Logger logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
+//    private static final LoggerUtils logger = LoggerFactory.getLogger(EjemploGlobalFilter.class);
 //
 //    @Override
 //    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

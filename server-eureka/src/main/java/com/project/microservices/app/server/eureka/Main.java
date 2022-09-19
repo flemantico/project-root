@@ -40,6 +40,7 @@ public class Main {
 
         public void getProperties()
         {
+
             logger.warn("***** "+ name.toUpperCase(Locale.ROOT) +": " + port + " -> " + Main.class.getSimpleName() + " is started *****");
         }
     }

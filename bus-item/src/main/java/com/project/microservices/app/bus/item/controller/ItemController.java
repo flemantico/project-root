@@ -16,7 +16,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.project.microservices.library.commons.constants.Messages.MESSAGE_ERROR;
+import static com.project.microservices.library.commons.constants.Messages.MESSAGE_RESPONSE;
 import static com.project.microservices.library.commons.constants.Verbs.*;
+import static com.project.microservices.library.commons.constants.PathsBus.*;
 import static com.project.microservices.library.commons.utils.GlobalsFunctions.*;
 
 /**
@@ -52,14 +54,14 @@ public class ItemController {
 
     private HttpStatus httpStatus = HttpStatus.OK;
 
-    @GetMapping(value = ALL_OBJECTS_PAGES)
+    @GetMapping(value = PATH_BUS_ALL_OBJECTS_PAGES)
     public ResponseEntity<ResponseClass> page(
             @RequestParam (required = false, defaultValue = "0") int page,
             @RequestParam (required = false, defaultValue = "10") int size,
             @RequestParam (required = false, defaultValue = "id") String column,
             @RequestParam (required = false, defaultValue = "true") boolean isAscending, HttpServletRequest httpServletRequest){
-        LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_NAME, getPort(env));
+        LOGGER.info(METHOD_GET_ALL);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_OBJECT_BY_NAME, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -68,19 +70,19 @@ public class ItemController {
             verifyIsFoundEmptyResponse(pages, response);
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_RESPONSE, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping(value = ALL_OBJECTS)
+    @GetMapping(value = PATH_BUS_ALL_OBJECTS)
     public ResponseEntity<ResponseClass> all(HttpServletRequest httpServletRequest) {
-        LOGGER.info(GET_ALL);
-        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        LOGGER.info(METHOD_GET_ALL);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_ALL_OBJECTS, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -88,20 +90,20 @@ public class ItemController {
             verifyIsFoundEmptyResponse(items, response);
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_RESPONSE, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
 
     @GetMapping("/find/{id}/quantity/{quantity}")
     public ResponseEntity<ResponseClass> get(@PathVariable Long id, @PathVariable Integer quantity, HttpServletRequest httpServletRequest) {
-        LOGGER.info(GET_BY_ID);
-        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        LOGGER.info(METHOD_GET);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_OBJECT_BY_ID, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -109,19 +111,19 @@ public class ItemController {
             verifyIsFoundEmptyResponse(item, response);
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_RESPONSE, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @PostMapping(ALL_OBJECTS)
+    @PostMapping(PATH_BUS_ALL_OBJECTS)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, HttpServletRequest httpServletRequest) {
-        LOGGER.info(CREATE);
-        ResponseClass response = new ResponseClass(httpServletRequest, ALL_OBJECTS, getPort(env));
+        LOGGER.info(METHOD_CREATE);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_ALL_OBJECTS, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -129,19 +131,19 @@ public class ItemController {
             verifyIsFoundEmptyResponse(item, response);
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_RESPONSE, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @PutMapping(OBJECT_BY_ID)
+    @PutMapping(PATH_BUS_OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> save(@RequestBody Product product, @PathVariable Long id, HttpServletRequest httpServletRequest) {
-        LOGGER.info(EDIT);
-        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        LOGGER.info(METHOD_EDIT);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_OBJECT_BY_ID, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -153,19 +155,19 @@ public class ItemController {
             }
         } catch (Exception e) {
              httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_ERROR, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @DeleteMapping(OBJECT_BY_ID)
+    @DeleteMapping(PATH_BUS_OBJECT_BY_ID)
     public ResponseEntity<ResponseClass> delete(@PathVariable Long id, HttpServletRequest httpServletRequest) {
-        LOGGER.info(DELETE);
-        ResponseClass response = new ResponseClass(httpServletRequest, OBJECT_BY_ID, getPort(env));
+        LOGGER.info(METHOD_DELETE);
+        ResponseClass response = new ResponseClass(httpServletRequest, PATH_BUS_OBJECT_BY_ID, getPort(env));
         httpStatus = HttpStatus.OK;
 
         try {
@@ -175,12 +177,12 @@ public class ItemController {
             }
         } catch (Exception e) {
             httpStatus = HttpStatus.CONFLICT;
-            LOGGER.info("Error: {}", createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
+            //LOGGER.info(MESSAGE_ERROR, createError(Errors.TECHNICAL_ERROR_CODE, Errors.TECHNICAL_ERROR_DETAIL + " - " + sanitize(e.getMessage()), response));
         }finally{
             //setResponse(response, httpServletRequest);
         }
 
-        LOGGER.info("Response: {}", sanitize(response));
+        //LOGGER.info(MESSAGE_RESPONSE, sanitize(response));
         return new ResponseEntity<>(response, httpStatus);
     }
 
