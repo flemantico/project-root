@@ -16,6 +16,7 @@ ext {
 }
 
 dependencies {
+
     //parent
     implementation project(':pom-basic')
 

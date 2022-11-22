@@ -8,15 +8,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Locale;
 
 @EnableConfigServer
 @SpringBootApplication
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
 
     private static ReadProperties object;
 
@@ -25,7 +27,7 @@ public class Main {
         Main.object = object;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         System.setProperty("log_file_name", "server-configuration");
         SpringApplication.run(Main.class, args);
 
@@ -40,11 +42,14 @@ public class Main {
         @Value("${server.port}")
         private String port;
 
-        public void getProperties()
-        {
-            LoggerUtils.logWarn(logger, "***** "+ name.toUpperCase(Locale.ROOT) +": " + port + " -> " + Main.class.getSimpleName() + " is started *****");
-            //logger.warn("***** "+ name.toUpperCase(Locale.ROOT) +": " + port + " -> " + Main.class.getSimpleName() + " is started *****");
+        @Value("${spring.profiles.active}")
+        private static String profile;
 
+        @Autowired
+        Environment env;
+
+        public void getProperties() throws UnknownHostException {
+            LoggerUtils.logApplicationRunning(logger, name.toUpperCase(Locale.ROOT), Main.class.getSimpleName(), env, port, InetAddress.getLocalHost().getHostAddress(), port, profile);
         }
     }
 }

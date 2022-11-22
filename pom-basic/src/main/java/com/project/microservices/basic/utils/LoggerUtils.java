@@ -2,7 +2,11 @@ package com.project.microservices.basic.utils;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
+import org.springframework.core.env.Environment;
 
+import java.net.InetAddress;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 import static com.project.microservices.basic.constants.Logs.*;
@@ -17,11 +21,13 @@ public class LoggerUtils {
     private LoggerUtils() {
     }
 
-    public static <T> void logInfo(Logger loggerProject, T request) {
+    public static <T> void logInfo(Logger loggerProject, T... request) {
         StringBuilder infoMsg = new StringBuilder().append(INFO_MSG);
 
         if (Objects.nonNull(request)) {
-            infoMsg.append(sanitize(request));
+            for(Object cadena : Arrays.stream(request).toArray()) {
+                infoMsg.append(sanitize(cadena));
+            }
         } else {
             infoMsg.append(NULL_REQUEST);
         }
@@ -30,12 +36,13 @@ public class LoggerUtils {
         loggerProject.info(sanitize(finalMessage));
     }
 
-
-    public static <T> void logWarn(Logger loggerProject, T request) {
+    public static <T> void logWarn(Logger loggerProject, T... request) {
         StringBuilder infoMsg = new StringBuilder().append(INFO_MSG);
 
         if (Objects.nonNull(request)) {
-            infoMsg.append(sanitize(request));
+            for(Object cadena : Arrays.stream(request).toArray()) {
+                infoMsg.append(sanitize(cadena));
+            }
         } else {
             infoMsg.append(NULL_REQUEST);
         }
@@ -43,7 +50,6 @@ public class LoggerUtils {
         String finalMessage = infoMsg.toString();
         loggerProject.warn(sanitize(finalMessage));
     }
-
 
     public static void logError(Logger logger) {
         logger.error("");
@@ -72,5 +78,29 @@ public class LoggerUtils {
 
     private static String sanitize(Object uncleanObject) {
         return StringEscapeUtils.escapeJava(uncleanObject.toString());
+    }
+
+    public static void logApplicationRunning(Logger loggerProject, String name, String main, Environment env, String port, String hostAddress, String port1, String profile) {
+        String protocol = env.getProperty("server.ssl.key-store") != null? "https": "http";
+
+        loggerProject.warn(
+                "\n\n----------------------------------------------------------\n\t" +
+                        "Application '{}' ({}) is running! Access URLs:\n\t" +
+                        "Local: \t\t\t{}://localhost:{}\n\t" +
+                        "External: \t\t{}://{}:{}\n\t" +
+                        "Profile(s): \t{}" +
+                        "\n----------------------------------------------------------\n\t",
+                name,
+                main,
+                protocol,
+                port,
+                protocol,
+                hostAddress,
+                port,
+                profile);
+
+        //String finalMessage = infoMsg.toString();
+        //loggerProject.warn(sanitize(finalMessage));
+
     }
 }
